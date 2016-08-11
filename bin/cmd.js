@@ -7,8 +7,11 @@ const programs = {
 const name = process.argv[2]
 const args = process.argv.slice(3)
 
+const programError = (program) =>  console.error(` - javascript-env ${program}`)
+
 if (!name) {
-  console.error('You need to supply a program to run')
+  console.error('You need to supply a program to run. Existing programs are:')
+  Object.keys(programs).forEach(programError)
   process.exit(0)
 }
 
