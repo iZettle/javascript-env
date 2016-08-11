@@ -23,7 +23,7 @@ or from your `package.json`:
 Everything following the `programName` will be passed as arguments to the program. So check the documentation of the program to find out what it can do.
 
 ## Programs
-The following programs exist currently
+The following programs exist currently:
 
 ### eslint - one code style to rule them all
 Will use the `eslint/.eslintrc` rule file. Any other arguments supplied will just be passed to eslint.
