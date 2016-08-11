@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 
-const args = require('optimist').argv
 const eslint = require('../eslint')
+const cmd = process.argv[2]
+const args = process.argv.slice(3)
 
-const command = run(args.run)
+const command = run(cmd, args)
 
 command.stdout.pipe(process.stdout)
 command.stderr.pipe(process.stderr)
 
-function run(command) {
+function run (command, args) {
   switch (command) {
-    case "eslint":
-      return eslint()
+    case 'eslint':
+      return eslint(args)
 
     default:
       if (args.run) {
@@ -20,7 +21,7 @@ function run(command) {
         console.log("You need to provide something to run with '--run'")
       }
 
-      return process.exit(0);
+      return process.exit(0)
   }
 }
 
