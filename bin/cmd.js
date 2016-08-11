@@ -1,13 +1,12 @@
 #!/usr/bin/env node
-const spawn = require('child_process').spawn
+const spawn = require("child_process").spawn
 const lint = require("../lint")
 
 const programs = { lint }
 
 const name = process.argv[2]
 const args = process.argv.slice(3)
-
-const programError = (program) =>  console.error(` - javascript-env ${program}`)
+const programError = program => console.error(` - javascript-env ${program}`)
 
 if (!name) {
   console.error("You need to supply a program to run. Existing programs are:")
@@ -21,6 +20,6 @@ if (!programs[name]) {
 }
 
 const program = programs[name](args)
-spawn(program.command, program.args, {stdio: "inherit"}).on("exit", () => {
+spawn(program.command, program.args, { stdio: "inherit" }).on("exit", () => {
   process.exit(0)
 })
