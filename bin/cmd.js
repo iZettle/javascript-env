@@ -8,7 +8,7 @@ const programs = {
   lint,
   compile,
   test
- }
+}
 
 const name = process.argv[2]
 const args = process.argv.slice(3)
