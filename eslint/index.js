@@ -3,7 +3,7 @@
 const spawn = require('child_process').spawn
 const path = require('path')
 
-const ESLINT_CMD = path.join(__dirname, "..", "node_modules", ".bin", "eslint");
+const ESLINT_CMD = path.join(process.cwd(), "node_modules", ".bin", "eslint");
 
 module.exports = function eslint() {
   return spawn(
