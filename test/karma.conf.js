@@ -1,7 +1,7 @@
 const path = require("path");
 const webpackConfig = require("../compile/webpack.config")
 const webpack = require("webpack")
-const workingDir = path.join(process.cwd(), "**", "*test.js");
+const workingDir = path.join(process.cwd(), "!(node_modules)/**", "*test.js");
 
 module.exports = function webpackTestConfig(config) {
   config.set({
