@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const programs = {
-  eslint: require('../eslint')
+  lint: require('../lint')
 }
 
 const name = process.argv[2]

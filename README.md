@@ -25,13 +25,13 @@ Everything following the `programName` will be passed as arguments to the progra
 ## Programs
 The following programs exist currently:
 
-### eslint - one code style to rule them all
-Will use the `eslint/.eslintrc` rule file. Any other arguments supplied will just be passed to eslint.
+### lint - one code style to rule them all
+Uses `eslint` and the `lint/.eslintrc` rule file. Any other arguments supplied will just be passed to eslint.
 
 ```sh
 $ javascript-env eslint /path/to/javascript
 ```
 
-You can make the **Atom** `linter-eslint` package use this projects `.eslintrc` file by putting `./node_modules/javascript-env/eslint/.eslintrc` into the `.eslintrc Path` text field.
+You can make the **Atom** `linter-eslint` package use this projects `.eslintrc` file by putting `./node_modules/javascript-env/lint/.eslintrc` into the `.eslintrc Path` text field.
 
 :ring:
