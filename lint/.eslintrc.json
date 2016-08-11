@@ -28,6 +28,7 @@
     "no-restricted-syntax": 0,
     "quotes": [2, "double"],
     "react/jsx-closing-bracket-location": 0,
+    "react/jsx-filename-extension": 0,
     "react/jsx-no-bind": 0,
     "react/jsx-uses-react": 1,
     "react/no-did-mount-set-state": 1,
