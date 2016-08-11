@@ -1,13 +1,15 @@
-const webpack = require('webpack')
-const path = require('path')
-const root = path.resolve('./app/ui')
+const webpack = require("webpack")
 
 module.exports = {
-  devtool: 'eval',
+  devtool: "eval",
   module: {
-    loaders: [
-      { test: /\.js$/, loader: 'babel' }
-    ]
+    loaders: [{
+      test: /\.js$/,
+      loader: "babel",
+      query: {
+        presets: ["es2015"]
+      }
+    }]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()
