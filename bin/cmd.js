@@ -2,8 +2,13 @@
 const spawn = require("child_process").spawn
 const lint = require("../lint")
 const compile = require("../compile")
+const test = require("../test")
 
-const programs = { lint, compile }
+const programs = {
+  lint,
+  compile,
+  test
+ }
 
 const name = process.argv[2]
 const args = process.argv.slice(3)
