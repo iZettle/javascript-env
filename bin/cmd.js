@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const spawn = require('child_process').spawn
 
 const programs = {
   lint: require('../lint')
@@ -10,7 +11,7 @@ const args = process.argv.slice(3)
 const programError = (program) =>  console.error(` - javascript-env ${program}`)
 
 if (!name) {
-  console.error('You need to supply a program to run. Existing programs are:')
+  console.error("You need to supply a program to run. Existing programs are:")
   Object.keys(programs).forEach(programError)
   process.exit(0)
 }
@@ -20,12 +21,9 @@ if (!programs[name]) {
   process.exit(0)
 }
 
-console.log(`Running: ${name}`)
-
 const program = programs[name](args)
+const prog = spawn(program.command, program.args, {stdio: "inherit"});
 
-program.stdout.pipe(process.stdout)
-program.stderr.pipe(process.stderr)
-program.on('exit', () => {
+prog.on("exit", () => {
   process.exit(0)
 })
