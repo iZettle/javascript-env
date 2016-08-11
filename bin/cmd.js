@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 const spawn = require("child_process").spawn
 const lint = require("../lint")
+const compile = require("../compile")
 
-const programs = { lint }
+const programs = { lint, compile }
 
 const name = process.argv[2]
 const args = process.argv.slice(3)
