@@ -1,5 +1,5 @@
 # javascript-env
-A collection of programs and configuration files that can be shared between JavaScript projects.
+A collection of programs and configuration files that is meant to be shared between our JavaScript projects.
 
 ## Install
 ```sh
