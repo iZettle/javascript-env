@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-const spawn = require('child_process').spawn
-const path = require('path')
+const spawn = require("child_process").spawn
+const path = require("path")
 
-const command = path.join(process.cwd(), 'node_modules', '.bin', 'eslint')
-const baseArgs = ['--config', path.join(__dirname, '.eslintrc.json')]
+const command = path.join(process.cwd(), "node_modules", ".bin", "eslint")
+const baseArgs = ["--config", path.join(__dirname, ".eslintrc.json")]
 
-module.exports = function eslint (args) {
+module.exports = function eslint(args) {
   return spawn(command, baseArgs.concat(args))
 }
 

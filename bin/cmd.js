@@ -1,8 +1,7 @@
 #!/usr/bin/env node
+const lint = require("../lint")
 
-const programs = {
-  lint: require('../lint')
-}
+const programs = { lint }
 
 const name = process.argv[2]
 const args = process.argv.slice(3)
@@ -10,7 +9,7 @@ const args = process.argv.slice(3)
 const programError = (program) =>  console.error(` - javascript-env ${program}`)
 
 if (!name) {
-  console.error('You need to supply a program to run. Existing programs are:')
+  console.error("You need to supply a program to run. Existing programs are:")
   Object.keys(programs).forEach(programError)
   process.exit(0)
 }
@@ -26,6 +25,6 @@ const program = programs[name](args)
 
 program.stdout.pipe(process.stdout)
 program.stderr.pipe(process.stderr)
-program.on('exit', () => {
+program.on("exit", () => {
   process.exit(0)
 })
