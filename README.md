@@ -32,4 +32,6 @@ Will use the `eslint/.eslintrc` rule file. Any other arguments supplied will jus
 $ javascript-env eslint /path/to/javascript
 ```
 
-Happy Hacking! :ring:
+You can make the Atom `linter-eslint` package use this projects `.eslintrc` file by putting `./node_modules/javascript-env/eslint/.eslintrc` into the `.eslintrc Path` text field.
+
+:ring:
