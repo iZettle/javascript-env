@@ -32,7 +32,4 @@ Will use the `eslint/.eslintrc` rule file. Any other arguments supplied will jus
 $ javascript-env eslint /path/to/javascript
 ```
 
-
-## ToDo
-- [ ] Change to prefered eslint rules
-- [ ] Fix coloured output when running commands from the command line
+Happy Hacking! :ring:
