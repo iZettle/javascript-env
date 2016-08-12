@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-
 const webpack = require("webpack")
+const devServer = require("./dev-server")
 
 const config = Object.assign(
   {},
@@ -8,9 +8,13 @@ const config = Object.assign(
   require(`${process.cwd()}/${process.argv[2]}`)
 )
 
-webpack(config, (err, stats) => {
-  console.log(stats.toString({
-    chunks: false, // Makes the build much quieter
-    colors: true
-  }))
-})
+if (process.argv.includes("--dev-server")) {
+  devServer(config)
+} else {
+  webpack(config, (err, stats) => {
+    console.log(stats.toString({
+      chunks: false, // Makes the build much quieter
+      colors: true
+    }))
+  })
+}
