@@ -10,12 +10,7 @@ function devServer(config) {
     "webpack/hot/only-dev-server"
   )
 
-  const devServerOptions = {
-    hot: true,
-    historyApiFallback: true
-  }
-
-  const server = new WebpackDevServer(webpack(config), devServerOptions)
+  const server = new WebpackDevServer(webpack(config))
 
   server.listen(port, host, (error) => {
     if (error) return console.log(error)
