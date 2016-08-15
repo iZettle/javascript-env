@@ -29,7 +29,7 @@ module.exports = {
       react: p("node_modules/react")
     }
 
-  }
+  },
 
   lint: {
 
@@ -46,4 +46,3 @@ module.exports = {
 
   }
 }
-

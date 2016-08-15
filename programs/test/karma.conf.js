@@ -1,5 +1,4 @@
-const path = require("path")
-const jsEnvConfig = require("../config")
+const jsEnvConfig = require("../../config")
 const createWebpackConfig = require("../compile/webpack.config")
 
 const webpackConfig = createWebpackConfig(jsEnvConfig.compile)
