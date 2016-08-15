@@ -34,4 +34,24 @@ $ javascript-env eslint /path/to/javascript
 
 You can make the **Atom** `linter-eslint` package use this projects `.eslintrc` file by putting `./node_modules/javascript-env/programs/lint/.eslintrc` into the `.eslintrc Path` text field.
 
+### test - without tests you might brick the TV
+
+We're using the following test suite
+
+- [Karma](https://karma-runner.github.io/1.0/index.html) as a test running on
+    phantomjs and in the future on Chrome/Firefox/Safari
+- [Jasmine](http://jasmine.github.io/) - as a test framework for writing the
+    tests.
+- [Mocha reporter](https://www.npmjs.com/package/karma-mocha-reporter) - for
+    lovely output
+
+Currently there's no way to provide a path to the test, it'll only run the
+current directories tests.
+
+```sh
+$ javascript-env test
+```
+
 :ring:
+:fish_cake:
+
