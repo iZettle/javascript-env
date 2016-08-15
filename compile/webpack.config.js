@@ -1,11 +1,23 @@
 const webpack = require("webpack")
 
-module.exports = {
+const createConfig = config => ({
   devtool: "eval",
+  entry: [config.source],
+  output: {
+    path: config.output,
+    filename: "bundle.js"
+  },
+  resolve: {
+    modulesDirectories: config.includes,
+    alias: config.alias
+  },
+  sassLoader: {
+    includePaths: config.includes
+  },
   module: {
     loaders: [{
       test: /\.js$/,
-      exclude: /node_modules/,
+      exclude: config.exclude,
       loader: "babel",
       query: {
         presets: ["es2015", "react", "stage-1"]
@@ -32,4 +44,6 @@ module.exports = {
     inline: true,
     hot: true
   }
-}
+})
+
+module.exports = createConfig
