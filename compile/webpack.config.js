@@ -1,18 +1,11 @@
 const webpack = require("webpack")
 
-const createConfig = config => ({
+module.exports = config => ({
   devtool: "eval",
   entry: [config.source],
   output: {
     path: config.output,
     filename: "bundle.js"
-  },
-  resolve: {
-    modulesDirectories: config.includes,
-    alias: config.alias
-  },
-  sassLoader: {
-    includePaths: config.includes
   },
   module: {
     loaders: [{
@@ -37,13 +30,12 @@ const createConfig = config => ({
       ]
     }]
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ],
-  devServer: {
-    inline: true,
-    hot: true
+  plugins: [],
+  resolve: {
+    modulesDirectories: config.includes,
+    alias: config.alias
+  },
+  sassLoader: {
+    includePaths: config.includes
   }
 })
-
-module.exports = createConfig
