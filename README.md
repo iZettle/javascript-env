@@ -32,6 +32,6 @@ Uses `eslint` and the `lint/.eslintrc` rule file. Any other arguments supplied w
 $ javascript-env eslint /path/to/javascript
 ```
 
-You can make the **Atom** `linter-eslint` package use this projects `.eslintrc` file by putting `./node_modules/javascript-env/lint/.eslintrc` into the `.eslintrc Path` text field.
+You can make the **Atom** `linter-eslint` package use this projects `.eslintrc` file by putting `./node_modules/javascript-env/programs/lint/.eslintrc` into the `.eslintrc Path` text field.
 
 :ring:
