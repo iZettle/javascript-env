@@ -4,14 +4,6 @@ const p = subPath => path.resolve(__dirname, subPath)
 
 module.exports = {
 
-  test: {
-
-    // karma will look for test files
-    // using this glob pattern
-    files: p("app/ui/**/*test.js")
-
-  },
-
   compile: {
 
     // the webpack entry file
@@ -36,6 +28,21 @@ module.exports = {
       inugami: p("node_modules/inugami/src"),
       react: p("node_modules/react")
     }
+
+  }
+
+  lint: {
+
+    // eslint will lint files matching this glob
+    files: p("app/ui/**/*.js")
+
+  },
+
+  test: {
+
+    // karma will look for test files
+    // using this glob pattern
+    files: p("app/ui/**/*test.js")
 
   }
 }
