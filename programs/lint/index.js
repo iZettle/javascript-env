@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const path = require("path")
-const jsEnvConfig = require("../config")
+const jsEnvConfig = require("../../config")
 
 const command = path.join(process.cwd(), "node_modules", ".bin", "eslint")
 const baseArgs = [
