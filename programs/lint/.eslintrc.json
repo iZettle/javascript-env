@@ -41,6 +41,7 @@
     "react/no-multi-comp": 1,
     "react/prefer-stateless-function": 1,
     "react/prop-types": 0,
+    "react/no-string-refs": ["warn"],
     "semi": [2, "never"]
   }
 }
