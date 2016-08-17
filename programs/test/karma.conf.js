@@ -1,7 +1,7 @@
 const jsEnvConfig = require("../../config")
 const createWebpackConfig = require("../compile/webpack.config")
 
-const webpackConfig = createWebpackConfig(jsEnvConfig.compile)
+const webpackConfig = createWebpackConfig(jsEnvConfig.compile).build()
 
 module.exports = function webpackTestConfig(config) {
   config.set({

@@ -1,41 +1,67 @@
 const webpack = require("webpack")
 
-module.exports = config => ({
-  devtool: "eval",
-  entry: [config.source],
-  output: {
-    path: config.output,
-    filename: "bundle.js"
+const loaders = {
+  js: {
+    test: /\.js$/,
+    exclude: /node_modules/,
+    loader: "babel",
+    query: {
+      presets: ["es2015", "react", "stage-1"]
+    }
   },
-  module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: config.exclude,
-      loader: "babel",
-      query: {
-        presets: ["es2015", "react", "stage-1"]
-      }
-    }, {
-      test: /\.json$/,
-      loader: "json"
-    }, {
-      test: /\.svg$/,
-      loader: "raw"
-    }, {
-      test: /\.scss$/,
-      loaders: [
-        "style",
-        "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap",
-        "sass?sourceMap"
-      ]
-    }]
+  json: {
+    test: /\.json$/,
+    loader: "json"
   },
-  plugins: [],
-  resolve: {
-    modulesDirectories: config.includes,
-    alias: config.alias
+  raw: {
+    test: /\.svg$/,
+    loader: "raw"
   },
-  sassLoader: {
-    includePaths: config.includes
+  scss: {
+    test: /\.scss$/,
+    loaders: [
+      "style",
+      "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap",
+      "sass?sourceMap"
+    ]
   }
-})
+}
+
+function createWebpackConfig(opts) {
+  const config = {
+    devtool: "eval",
+    module: { loaders: loaders },
+    resolve: {},
+    plugins: []
+  }
+
+  if (opts.source && opts.output) {
+    config.entry = [opts.source]
+    config.output = { path: opts.output, filename: "bundle.js" }
+  }
+
+  if (opts.includes) {
+    config.resolve.modulesDirectories = opts.includes
+    config.sassLoader = { includePaths: opts.includes }
+  }
+
+  if (opts.exclude) {
+    config.module.loaders.js.exclude = opts.exclude
+  }
+
+  if (opts.alias) {
+    config.resolve.alias = opts.alias
+  }
+
+  return {
+    config,
+    build() {
+      this.config.module.loaders = Object.keys(this.config.module.loaders)
+        .map(key => this.config.module.loaders[key])
+
+      return this.config
+    }
+  }
+}
+
+module.exports = createWebpackConfig
