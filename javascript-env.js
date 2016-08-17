@@ -1,5 +1,10 @@
+const path = require("path")
+
 module.exports = {
   lint: {
-    files: "**/*.js"
+    files: path.join(__dirname, "**", "*.js")
+  },
+  test: {
+    files: path.join(process.cwd(), "!(node_modules)/**", "*test.js")
   }
 }
