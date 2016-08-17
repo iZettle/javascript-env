@@ -1,5 +1,3 @@
-const webpack = require("webpack")
-
 const loaders = {
   js: {
     test: /\.js$/,
@@ -30,7 +28,7 @@ const loaders = {
 function createWebpackConfig(opts = {}) {
   const config = {
     devtool: "eval",
-    module: { loaders: loaders },
+    module: { loaders },
     resolve: {},
     plugins: []
   }

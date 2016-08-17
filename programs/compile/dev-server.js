@@ -19,12 +19,11 @@ const createDevServer = config => {
   return new WebpackDevServer(webpack(config))
 }
 
-const startDevServer = devServer => {
-  return devServer.listen(port, host, (error) => {
+const startDevServer = devServer => (
+  devServer.listen(port, host, (error) => {
     if (error) return console.log(error)
-
     console.log(`Listening at http://${host}:${port}/`)
   })
-}
+)
 
 module.exports = config => startDevServer(createDevServer(config))

@@ -19,8 +19,8 @@ if (process.argv.includes("--dev-server")) {
       minimize: true
     }),
     new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
+      "process.env": {
+        NODE_ENV: JSON.stringify("production")
       }
     })
   )
