@@ -27,7 +27,7 @@ const loaders = {
   }
 }
 
-function createWebpackConfig(opts) {
+function createWebpackConfig(opts = {}) {
   const config = {
     devtool: "eval",
     module: { loaders: loaders },
