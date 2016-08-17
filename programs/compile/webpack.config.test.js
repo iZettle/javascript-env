@@ -7,7 +7,7 @@ describe("createWebpackConfig()", () => {
       const loaders = configBuilder.config.module.loaders
 
       expect(loaders instanceof Object).toEqual(true)
-      expect(Object.keys(loaders).length).toEqual(4)
+      expect(Object.keys(loaders)).toEqual(["babel", "json", "raw", "sass"])
     })
 
     it("should convert the loaders to an array when built", () => {

@@ -1,5 +1,5 @@
 const loaders = {
-  js: {
+  babel: {
     test: /\.js$/,
     exclude: /node_modules/,
     loader: "babel",
@@ -15,7 +15,7 @@ const loaders = {
     test: /\.svg$/,
     loader: "raw"
   },
-  scss: {
+  sass: {
     test: /\.scss$/,
     loaders: [
       "style",
