@@ -21,27 +21,26 @@ describe("createWebpackConfig()", () => {
     })
   })
 
-  describe("source and output options", () => {
+  describe("entry and output options", () => {
     describe("if set", () => {
       let config
 
       beforeEach(() => {
         config = createWebpackConfig({
-          source: "foo",
-          output: "bar"
+          entry: "foo",
+          output: {
+            path: "bar",
+            filename: "baz"
+          }
         }).build()
       })
 
-      it("should set source as the entry", () => {
+      it("should set the entry", () => {
         expect(config.entry).toEqual(["foo"])
       })
 
-      it("should set output as the output path", () => {
-        expect(config.output.path).toEqual("bar")
-      })
-
-      it("should set default the bundle filename", () => {
-        expect(config.output.filename).toEqual("bundle.js")
+      it("should set the output", () => {
+        expect(config.output).toEqual({ path: "bar", filename: "baz"})
       })
     })
 

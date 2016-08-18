@@ -34,9 +34,9 @@ function createWebpackConfig(opts = {}) {
     sassLoader: {}
   }
 
-  if (opts.source && opts.output) {
-    config.entry = [opts.source]
-    config.output = { path: opts.output, filename: "bundle.js" }
+  if (opts.entry && opts.output) {
+    config.entry = [opts.entry]
+    config.output = opts.output
   }
 
   if (opts.includes) {
