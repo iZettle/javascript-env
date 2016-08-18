@@ -4,8 +4,9 @@ const jsEnvConfig = require("../../config")
 
 const command = path.join(process.cwd(), "node_modules", ".bin", "eslint")
 const baseArgs = [
-  jsEnvConfig.lint.files,
-  "--config", path.join(__dirname, ".eslintrc.json")
+  "--config", path.join(__dirname, ".eslintrc.json"),
+  "--ignore-path", path.join(process.cwd(), ".gitignore"),
+  jsEnvConfig.lint.files
 ]
 
 const eslint = args => ({ command, args: baseArgs.concat(args) })
