@@ -30,7 +30,8 @@ function createWebpackConfig(opts = {}) {
     devtool: "eval",
     module: { loaders },
     resolve: {},
-    plugins: []
+    plugins: [],
+    sassLoader: {}
   }
 
   if (opts.source && opts.output) {
@@ -40,7 +41,7 @@ function createWebpackConfig(opts = {}) {
 
   if (opts.includes) {
     config.resolve.modulesDirectories = opts.includes
-    config.sassLoader = { includePaths: opts.includes }
+    config.sassLoader.includePaths = opts.includes
   }
 
   if (opts.exclude) {
