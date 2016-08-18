@@ -52,6 +52,10 @@ function createWebpackConfig(opts = {}) {
     config.resolve.alias = opts.alias
   }
 
+  if (opts.externals) {
+    config.externals = opts.externals
+  }
+
   return {
     config,
     build() {

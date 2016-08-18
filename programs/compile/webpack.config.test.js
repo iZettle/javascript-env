@@ -106,4 +106,22 @@ describe("createWebpackConfig()", () => {
       expect(config.resolve.alias).toEqual({ foo: "bar" })
     })
   })
+
+  describe("externals option", () => {
+    it("should not be present if not set", () => {
+      const config = createWebpackConfig().build()
+
+      expect(config.externals).toBeUndefined()
+    })
+
+    it("should be present if set", () => {
+      const config = createWebpackConfig({
+        externals: {
+          foo: "bar"
+        }
+      }).build()
+
+      expect(config.externals).toEqual({ foo: "bar" })
+    })
+  })
 })
