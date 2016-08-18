@@ -39,7 +39,7 @@ describe("createWebpackConfig()", () => {
       expect(config.output.path).toEqual("bar")
     })
 
-    it("should set default set a default bundle filename", () => {
+    it("should set default the bundle filename", () => {
       expect(config.output.filename).toEqual("bundle.js")
     })
   })
