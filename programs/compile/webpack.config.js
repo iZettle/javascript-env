@@ -1,5 +1,5 @@
 const loaders = {
-  js: {
+  babel: {
     test: /\.js$/,
     exclude: /node_modules/,
     loader: "babel",
@@ -15,7 +15,7 @@ const loaders = {
     test: /\.svg$/,
     loader: "raw"
   },
-  scss: {
+  sass: {
     test: /\.scss$/,
     loaders: [
       "style",
@@ -30,7 +30,8 @@ function createWebpackConfig(opts = {}) {
     devtool: "eval",
     module: { loaders },
     resolve: {},
-    plugins: []
+    plugins: [],
+    sassLoader: {}
   }
 
   if (opts.source && opts.output) {
@@ -40,7 +41,7 @@ function createWebpackConfig(opts = {}) {
 
   if (opts.includes) {
     config.resolve.modulesDirectories = opts.includes
-    config.sassLoader = { includePaths: opts.includes }
+    config.sassLoader.includePaths = opts.includes
   }
 
   if (opts.exclude) {
