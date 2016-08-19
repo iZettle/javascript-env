@@ -1,3 +1,5 @@
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
+
 const loaders = {
   babel: {
     test: /\.js$/,
@@ -17,11 +19,10 @@ const loaders = {
   },
   sass: {
     test: /\.scss$/,
-    loaders: [
+    loader: ExtractTextPlugin.extract(
       "style",
-      "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap",
-      "sass?sourceMap"
-    ]
+      "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap!sass"
+    )
   }
 }
 
@@ -31,7 +32,9 @@ function createWebpackConfig(opts = {}) {
     devtool: "eval",
     module: { loaders },
     resolve: {},
-    plugins: [],
+    plugins: [
+      new ExtractTextPlugin("styles.css", { allChunks: true })
+    ],
     sassLoader: {}
   }
 
