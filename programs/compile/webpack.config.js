@@ -1,4 +1,5 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const autoprefixer = require("autoprefixer")
 
 const loaders = {
   babel: {
@@ -21,7 +22,7 @@ const loaders = {
     test: /\.scss$/,
     loader: ExtractTextPlugin.extract(
       "style",
-      "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap!sass"
+      "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap!postcss!sass"
     )
   }
 }
@@ -35,7 +36,10 @@ function createWebpackConfig(opts = {}) {
     plugins: [
       new ExtractTextPlugin("styles.css", { allChunks: true })
     ],
-    sassLoader: {}
+    sassLoader: {},
+    postcss() {
+      return [autoprefixer({ browsers: ["last 5 versions"] })]
+    }
   }
 
   if (opts.entry && opts.output) {
