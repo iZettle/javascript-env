@@ -7,7 +7,7 @@ const loaders = {
     exclude: /node_modules/,
     loader: "babel",
     query: {
-      presets: ["es2015", "react", "stage-1"]
+      presets: ["es2015-loose", "react", "stage-1"]
     }
   },
   json: {
