@@ -13,7 +13,7 @@ module.exports = {
     output: {
       path: p("public"),
       filename: "bundle.js"
-    }
+    },
 
     // paths that webpack will look under
     // when resolving modules

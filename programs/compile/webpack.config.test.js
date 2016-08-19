@@ -40,7 +40,7 @@ describe("createWebpackConfig()", () => {
       })
 
       it("should set the output", () => {
-        expect(config.output).toEqual({ path: "bar", filename: "baz"})
+        expect(config.output).toEqual({ path: "bar", filename: "baz" })
       })
     })
 
