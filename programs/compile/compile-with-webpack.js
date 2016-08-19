@@ -2,20 +2,31 @@ const webpack = require("webpack")
 const devServer = require("./dev-server")
 const createWebpackConfig = require("./webpack.config")
 
-function start(config) {
-  webpack(config, (err, stats) => {
-    console.log(stats.toString({
-      chunks: false, // Makes the build much quieter
-      colors: true
-    }))
-  })
+function createCompiler(config) {
+  return {
+    run() {
+      webpack(config).run((err, stats) => {
+        console.log(stats.toString({
+          chunks: false, // Makes the build much quieter
+          colors: true
+        }))
+      })
+    },
+    watch() {
+      webpack(config).watch({}, (err, stats) => {
+        console.log(stats.toString({
+          chunks: false, // Makes the build much quieter
+          colors: true
+        }))
+      })
+    },
+    devServer() {
+      devServer(config)
+    }
+  }
 }
 
-function development(config) {
-  devServer(config)
-}
-
-function production(config) {
+function modifyForProduction(config) {
   config.devtool = "cheap-module-source-map"
   config.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
@@ -32,7 +43,7 @@ function production(config) {
     })
   )
 
-  start(config)
+  return config
 }
 
 module.exports = function compileWithWebpack(config, args = []) {
@@ -40,14 +51,20 @@ module.exports = function compileWithWebpack(config, args = []) {
     throw new Error("No webpack config passed")
   }
 
-  const webpackConfig = createWebpackConfig(config).build()
+  let webpackConfig = createWebpackConfig(config).build()
 
   if (args.includes("--production")) {
-    production(webpackConfig)
-  } else if (args.includes("--dev-server")) {
-    development(webpackConfig)
+    webpackConfig = modifyForProduction(webpackConfig)
+  }
+
+  const compiler = createCompiler(webpackConfig)
+
+  if (args.includes("--dev-server")) {
+    compiler.devServer()
+  } else if (args.includes("--watch")) {
+    compiler.watch()
   } else {
-    start(webpackConfig)
+    compiler.run()
   }
 }
 
