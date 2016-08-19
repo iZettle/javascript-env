@@ -106,6 +106,18 @@ describe("createWebpackConfig()", () => {
     })
   })
 
+  describe("exclude option", () => {
+    it("should be default value if not set", () => {
+      const configBuilder = createWebpackConfig()
+      expect(configBuilder.config.module.loaders.babel.exclude).toEqual(/node_modules/)
+    })
+
+    it("should be changed if passed", () => {
+      const configBuilder = createWebpackConfig({ exclude: "foo" })
+      expect(configBuilder.config.module.loaders.babel.exclude).toEqual("foo")
+    })
+  })
+
   describe("externals option", () => {
     it("should not be present if not set", () => {
       const config = createWebpackConfig().build()

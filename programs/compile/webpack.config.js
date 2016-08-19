@@ -45,7 +45,7 @@ function createWebpackConfig(opts = {}) {
   }
 
   if (opts.exclude) {
-    config.module.loaders.js.exclude = opts.exclude
+    config.module.loaders.babel.exclude = opts.exclude
   }
 
   if (opts.alias) {
