@@ -135,4 +135,30 @@ describe("createWebpackConfig()", () => {
       expect(config.externals).toEqual({ foo: "bar" })
     })
   })
+
+  describe("target option", () => {
+    it("should be default if not set", () => {
+      const config = createWebpackConfig().build()
+
+      expect(config.target).toEqual("web")
+    })
+
+    it("should be set if present in config", () => {
+      const config = createWebpackConfig({
+        target: "foo"
+      }).build()
+
+      expect(config.target).toEqual("foo")
+    })
+
+    it("should set node options when present in config", () => {
+      const config = createWebpackConfig({
+        target: "node"
+      }).build()
+
+      expect(config.node).toEqual({
+        __dirname: false
+      })
+    })
+  })
 })

@@ -27,6 +27,7 @@ const loaders = {
 
 function createWebpackConfig(opts = {}) {
   const config = {
+    target: "web",
     devtool: "eval",
     module: { loaders },
     resolve: {},
@@ -37,6 +38,14 @@ function createWebpackConfig(opts = {}) {
   if (opts.entry && opts.output) {
     config.entry = [opts.entry]
     config.output = opts.output
+  }
+
+  if (opts.target) {
+    config.target = opts.target
+  }
+
+  if (config.target === "node") {
+    config.node = { __dirname: false }
   }
 
   if (opts.includes) {
