@@ -1,3 +1,5 @@
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
+
 const loaders = {
   babel: {
     test: /\.js$/,
@@ -17,26 +19,36 @@ const loaders = {
   },
   sass: {
     test: /\.scss$/,
-    loaders: [
+    loader: ExtractTextPlugin.extract(
       "style",
-      "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap",
-      "sass?sourceMap"
-    ]
+      "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap!sass"
+    )
   }
 }
 
 function createWebpackConfig(opts = {}) {
   const config = {
+    target: "web",
     devtool: "eval",
     module: { loaders },
     resolve: {},
-    plugins: [],
+    plugins: [
+      new ExtractTextPlugin("styles.css", { allChunks: true })
+    ],
     sassLoader: {}
   }
 
-  if (opts.source && opts.output) {
-    config.entry = [opts.source]
-    config.output = { path: opts.output, filename: "bundle.js" }
+  if (opts.entry && opts.output) {
+    config.entry = [opts.entry]
+    config.output = opts.output
+  }
+
+  if (opts.target) {
+    config.target = opts.target
+  }
+
+  if (config.target === "node") {
+    config.node = { __dirname: false }
   }
 
   if (opts.includes) {
@@ -45,7 +57,7 @@ function createWebpackConfig(opts = {}) {
   }
 
   if (opts.exclude) {
-    config.module.loaders.js.exclude = opts.exclude
+    config.module.loaders.babel.exclude = opts.exclude
   }
 
   if (opts.alias) {

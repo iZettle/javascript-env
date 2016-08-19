@@ -21,27 +21,26 @@ describe("createWebpackConfig()", () => {
     })
   })
 
-  describe("source and output options", () => {
+  describe("entry and output options", () => {
     describe("if set", () => {
       let config
 
       beforeEach(() => {
         config = createWebpackConfig({
-          source: "foo",
-          output: "bar"
+          entry: "foo",
+          output: {
+            path: "bar",
+            filename: "baz"
+          }
         }).build()
       })
 
-      it("should set source as the entry", () => {
+      it("should set the entry", () => {
         expect(config.entry).toEqual(["foo"])
       })
 
-      it("should set output as the output path", () => {
-        expect(config.output.path).toEqual("bar")
-      })
-
-      it("should set default the bundle filename", () => {
-        expect(config.output.filename).toEqual("bundle.js")
+      it("should set the output", () => {
+        expect(config.output).toEqual({ path: "bar", filename: "baz" })
       })
     })
 
@@ -107,6 +106,18 @@ describe("createWebpackConfig()", () => {
     })
   })
 
+  describe("exclude option", () => {
+    it("should be default value if not set", () => {
+      const configBuilder = createWebpackConfig()
+      expect(configBuilder.config.module.loaders.babel.exclude).toEqual(/node_modules/)
+    })
+
+    it("should be changed if passed", () => {
+      const configBuilder = createWebpackConfig({ exclude: "foo" })
+      expect(configBuilder.config.module.loaders.babel.exclude).toEqual("foo")
+    })
+  })
+
   describe("externals option", () => {
     it("should not be present if not set", () => {
       const config = createWebpackConfig().build()
@@ -122,6 +133,32 @@ describe("createWebpackConfig()", () => {
       }).build()
 
       expect(config.externals).toEqual({ foo: "bar" })
+    })
+  })
+
+  describe("target option", () => {
+    it("should be default if not set", () => {
+      const config = createWebpackConfig().build()
+
+      expect(config.target).toEqual("web")
+    })
+
+    it("should be set if present in config", () => {
+      const config = createWebpackConfig({
+        target: "foo"
+      }).build()
+
+      expect(config.target).toEqual("foo")
+    })
+
+    it("should set node options when present in config", () => {
+      const config = createWebpackConfig({
+        target: "node"
+      }).build()
+
+      expect(config.node).toEqual({
+        __dirname: false
+      })
     })
   })
 })

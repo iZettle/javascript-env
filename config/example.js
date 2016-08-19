@@ -7,10 +7,13 @@ module.exports = {
   compile: {
 
     // the webpack entry file
-    source: p("app/ui"),
+    entry: p("app/ui"),
 
     // wehpack puts its bundles in this dir
-    output: p("public"),
+    output: {
+      path: p("public"),
+      filename: "bundle.js"
+    },
 
     // paths that webpack will look under
     // when resolving modules
