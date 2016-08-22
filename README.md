@@ -46,6 +46,10 @@ $ javascript-env lint
 
 You can make the **Atom** `linter-eslint` package use this projects `.eslintrc` file by putting `./node_modules/javascript-env/programs/lint/.eslintrc` into the `.eslintrc Path` text field.
 
+### compile - 'cause configuring webpack is a pain
+
+...
+
 ### test - without tests you might brick the TV
 
 We're using the following test suite
