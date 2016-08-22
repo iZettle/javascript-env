@@ -1,25 +1,21 @@
-const path = require("path")
-
-const p = subPath => path.resolve(__dirname, subPath)
-
 module.exports = {
 
   compile: {
 
     // the webpack entry file
-    entry: p("app/ui"),
+    entry: "app/ui",
 
     // wehpack puts its bundles in this dir
     output: {
-      path: p("public"),
+      path: "public",
       filename: "bundle.js"
     },
 
     // paths that webpack will look under
     // when resolving modules
     includes: [
-      p("app/ui"),
-      p("node_modules/inugami/src"),
+      "app/ui",
+      "node_modules/inugami/src",
       "node_modules"
     ],
 
@@ -28,8 +24,8 @@ module.exports = {
 
     // webpack aliases
     alias: {
-      inugami: p("node_modules/inugami/src"),
-      react: p("node_modules/react")
+      inugami: "node_modules/inugami/src",
+      react: "node_modules/react"
     }
 
   },
@@ -37,7 +33,7 @@ module.exports = {
   lint: {
 
     // eslint will lint files matching this glob
-    files: p("app/ui/**/*.js")
+    files: "app/ui/**/*.js"
 
   },
 
@@ -45,7 +41,7 @@ module.exports = {
 
     // karma will look for test files
     // using this glob pattern
-    files: p("app/ui/**/*test.js")
+    files: "app/ui/**/*test.js"
 
   }
 }
