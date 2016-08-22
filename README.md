@@ -55,8 +55,17 @@ We're using the following test suite
 - [Mocha reporter](https://www.npmjs.com/package/karma-mocha-reporter) - for
     lovely output
 
-Currently there's no way to provide a path to the test, it'll only run the
-current directories tests.
+Tell `javascript-env` where your test files live by specifying it in the test section of your project's `javascript-env.js` file.
+
+```js
+module.exports = {
+  test: {
+    files: "**/*.js"
+  }
+}
+```
+
+And run it like so:
 
 ```sh
 $ javascript-env test
