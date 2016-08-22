@@ -48,7 +48,45 @@ You can make the **Atom** `linter-eslint` package use this projects `.eslintrc` 
 
 ### compile - 'cause configuring webpack is a pain
 
-...
+Gives us the ability to use es2015 and jsx without the hassle of setting up and configuring seventyeleven packages.
+
+The only thing you need to get started is to specify `entry` and `output` in the compile section of your `javascript-env.js` file.
+
+```js
+module.exports = {
+  compile: {
+    entry: "./path/to/entry-file.js",
+    output: {
+      path: "./path/to/output-dir",
+      filename: "bundle-file-name.js"
+    }
+  }
+}
+```
+
+Have a look at the [example config](https://github.com/iZettle/javascript-env/blob/master/config/example.js) to find out about all the configuration options. There's however one thing that the example config does not describe, which is the possibility to have multiple compile configs in your `javascript-env.js` file. This is done by setting the value of the compile section to an array of configs rather that just one:
+
+```js
+module.exports = {
+  compile: [{
+    target: "web",
+    entry: "./path/to/entry-file.js",
+    output: {
+      path: "./path/to/output-dir",
+      filename: "bundle-file-name.js"
+    }
+  }, {
+    target: "node",
+    entry: "./path/to/node-entry-file.js",
+    output: {
+      path: "./path/to/output-dir",
+      filename: "bundle-file-name.js"
+    }
+  }]
+}
+```
+
+These multiple builds will run in parallell thank you very much.
 
 ### test - without tests you might brick the TV
 
