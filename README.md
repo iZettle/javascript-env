@@ -26,10 +26,20 @@ Everything following the `programName` will be passed as arguments to the progra
 The following programs exist currently:
 
 ### lint - one code style to rule them all
-Uses `eslint` and the `lint/.eslintrc` rule file. Any other arguments supplied will just be passed to eslint.
+Uses `eslint` and the `programs/lint/.eslintrc` rule file and the files glob specified in your `javascript-env.js` config file. Any other arguments supplied will just be passed to eslint.
 
+Configure what files to lint by specifing it in your projects `javascript-env.js` config file.
+```js
+module.exports = {
+  lint: {
+    files: "**/*.js"
+  }
+}
+```
+
+And run it like so:
 ```sh
-$ javascript-env eslint /path/to/javascript
+$ javascript-env lint
 ```
 
 You can make the **Atom** `linter-eslint` package use this projects `.eslintrc` file by putting `./node_modules/javascript-env/programs/lint/.eslintrc` into the `.eslintrc Path` text field.
