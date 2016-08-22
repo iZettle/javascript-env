@@ -22,6 +22,8 @@ or from your `package.json`:
 
 Everything following the `programName` will be passed as arguments to the program. So check the documentation of the program to find out what it can do.
 
+To configure `javascript-env` put a `javascript-env.js` in your project's root directory. Each program as it's own section it this config file. There's an [example config](https://github.com/iZettle/javascript-env/blob/master/config/example.js) you can look at to get the idea.
+
 ## Programs
 The following programs exist currently:
 
