@@ -88,6 +88,12 @@ module.exports = {
 
 These multiple builds will run in parallell thank you very much.
 
+There's a simple CLI for this program as well.
+- `$ javascript-env compile` - A one-off run (runs all of your configs)
+- `$ javascript-env compile --production` - Same as above but does compresses and prepares everything for production
+- `$ javascript-env compile --watch` - Compiles and then watches for changes and recompiles when they happen
+- `$ javascript-env compile --dev-server` - Starts a [webpack dev server](https://webpack.github.io/docs/webpack-dev-server.html)
+
 ### test - without tests you might brick the TV
 
 We're using the following test suite
