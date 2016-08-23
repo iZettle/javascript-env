@@ -5,7 +5,7 @@
   "bin": "./bin/cmd.js",
   "main": "index.js",
   "scripts": {
-    "test": "./bin/cmd.js test",
+    "test": "JASMINE_CONFIG_PATH=./jasmine.json jasmine",
     "lint": "./bin/cmd.js lint"
   },
   "author": "",
