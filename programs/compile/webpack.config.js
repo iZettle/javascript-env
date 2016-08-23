@@ -39,6 +39,12 @@ function createWebpackConfig(opts = {}) {
     sassLoader: {},
     postcss() {
       return [autoprefixer({ browsers: ["last 5 versions"] })]
+    },
+    node: {
+      fs: "empty",
+      net: "empty",
+      tls: "empty",
+      child_process: "empty"
     }
   }
 
