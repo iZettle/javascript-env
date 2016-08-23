@@ -1,6 +1,6 @@
 {
   "spec_dir": "./",
   "spec_files": [
-    "./programs/compile/webpack.config.test.js"
+    "./programs/compile/**/*test.js"
   ]
 }
