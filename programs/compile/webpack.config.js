@@ -1,5 +1,4 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
-const autoprefixer = require("autoprefixer")
+// const autoprefixer = require("autoprefixer")
 
 const loaders = {
   babel: {
@@ -20,10 +19,7 @@ const loaders = {
   },
   sass: {
     test: /\.scss$/,
-    loader: ExtractTextPlugin.extract(
-      "style",
-      "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap!postcss!sass"
-    )
+    loader: "sass"
   }
 }
 
@@ -33,19 +29,17 @@ function createWebpackConfig(opts = {}) {
     devtool: "eval",
     module: { loaders },
     resolve: {},
-    plugins: [
-      new ExtractTextPlugin("styles.css", { allChunks: true })
-    ],
+    plugins: [],
     sassLoader: {},
     postcss() {
-      return [autoprefixer({ browsers: ["last 5 versions"] })]
+      return []
     },
-    node: {
-      fs: "empty",
-      net: "empty",
-      tls: "empty",
-      child_process: "empty"
-    }
+    // node: {
+    //   fs: "empty",
+    //   net: "empty",
+    //   tls: "empty",
+    //   child_process: "empty"
+    // }
   }
 
   if (opts.entry && opts.output) {
