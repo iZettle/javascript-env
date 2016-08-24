@@ -1,4 +1,4 @@
-import createWebpackConfig from "./webpack.config"
+const createWebpackConfig = require("./webpack.config")
 
 describe("createWebpackConfig()", () => {
   describe("with no options", () => {
