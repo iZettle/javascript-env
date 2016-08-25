@@ -6,6 +6,11 @@ const webpackConfig = createWebpackConfig(jsEnvConfig.compile).build()
 delete webpackConfig.entry // The tests are all the entry points
 delete webpackConfig.output // The output is the test result
 webpackConfig.devtool = "inline-source-map" // Produces more quiet error output
+Object.assign(webpackConfig.externals, {
+    "react/addons": true,
+    "react/lib/ExecutionEnvironment": true,
+    "react/lib/ReactContext": true
+})
 
 module.exports = function webpackTestConfig(config) {
   config.set({
