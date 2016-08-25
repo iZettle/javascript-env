@@ -33,6 +33,7 @@ function createWebpackConfig(opts = {}) {
     devtool: "eval",
     module: { loaders },
     resolve: {},
+    externals: {},
     plugins: [
       new ExtractTextPlugin("styles.css", { allChunks: true })
     ],
@@ -69,7 +70,7 @@ function createWebpackConfig(opts = {}) {
   }
 
   if (opts.externals) {
-    config.externals = opts.externals
+    Object.assign(config.externals, opts.externals)
   }
 
   return {
