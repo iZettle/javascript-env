@@ -119,10 +119,10 @@ describe("createWebpackConfig()", () => {
   })
 
   describe("externals option", () => {
-    it("should not be present if not set", () => {
+    it("should be empty object if not set in javascript-env.js config", () => {
       const config = createWebpackConfig().build()
 
-      expect(config.externals).toBeUndefined()
+      expect(config.externals).toEqual({})
     })
 
     it("should be present if set", () => {
