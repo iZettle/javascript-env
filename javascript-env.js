@@ -5,6 +5,6 @@ module.exports = {
     files: path.join(__dirname, "**", "*.js")
   },
   test: {
-    files: path.join(process.cwd(), "programs/**/*test.js")
+    files: path.join(process.cwd(), "!(node_modules)/**", "*test.js")
   }
 }

@@ -3,7 +3,11 @@ const createWebpackConfig = require("../compile/webpack.config")
 
 const webpackConfig = createWebpackConfig(jsEnvConfig.compile).build()
 
-module.exports = function (config) {
+delete webpackConfig.entry // The tests are all the entry points
+delete webpackConfig.output // The output is the test result
+webpackConfig.devtool = "inline-source-map" // Produces more quiet error output
+
+module.exports = function webpackTestConfig(config) {
   config.set({
     browsers: ["PhantomJS"],
     files: [
