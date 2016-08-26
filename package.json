@@ -1,6 +1,6 @@
 {
   "name": "javascript-env",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "",
   "bin": "./bin/cmd.js",
   "main": "index.js",
