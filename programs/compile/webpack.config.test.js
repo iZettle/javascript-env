@@ -31,7 +31,8 @@ describe("createWebpackConfig()", () => {
           output: {
             path: "bar",
             filename: "baz"
-          }
+          },
+          outputCss: "foo/bar.css"
         }).build()
       })
 
@@ -39,8 +40,12 @@ describe("createWebpackConfig()", () => {
         expect(config.entry).toEqual(["foo"])
       })
 
-      it("should set the output", () => {
+      it("should set the javascript output", () => {
         expect(config.output).toEqual({ path: "bar", filename: "baz" })
+      })
+
+      it("should set the css output", () => {
+        expect(config.plugins[0].filename).toEqual("foo/bar.css")
       })
     })
 

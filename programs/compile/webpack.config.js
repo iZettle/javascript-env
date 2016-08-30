@@ -35,7 +35,7 @@ function createWebpackConfig(opts = {}) {
     resolve: {},
     externals: {},
     plugins: [
-      new ExtractTextPlugin("styles.css", { allChunks: true })
+      new ExtractTextPlugin(opts.outputCss || "styles.css", { allChunks: true })
     ],
     sassLoader: {},
     postcss() {
