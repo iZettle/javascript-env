@@ -28,7 +28,6 @@ const loaders = {
 }
 
 function createWebpackConfig(opts = {}) {
-  const outputCss = opts.outputCss ? opts.outputCss : "styles.css"
   const config = {
     target: "web",
     devtool: "eval",
@@ -36,7 +35,7 @@ function createWebpackConfig(opts = {}) {
     resolve: {},
     externals: {},
     plugins: [
-      new ExtractTextPlugin(outputCss, { allChunks: true })
+      new ExtractTextPlugin(opts.outputCss || "styles.css", { allChunks: true })
     ],
     sassLoader: {},
     postcss() {
