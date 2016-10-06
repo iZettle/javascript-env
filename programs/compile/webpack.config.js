@@ -5,10 +5,7 @@ const loaders = {
   babel: {
     test: /\.js$/,
     exclude: /node_modules/,
-    loader: "babel",
-    query: {
-      presets: ["es2015-loose", "react", "stage-1"]
-    }
+    loaders: ["babel?presets[]=es2015-loose,presets[]=react,presets[]=stage-1"]
   },
   json: {
     test: /\.json$/,
@@ -27,7 +24,20 @@ const loaders = {
   }
 }
 
-function createWebpackConfig(opts = {}) {
+function createWebpackConfig(args = [], opts = {}) {
+  if (args.includes("--dev-server")) {
+    loaders.sass = {
+      test: /\.scss$/,
+      loaders: [
+        "style",
+        "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap",
+        "postcss",
+        "sass"]
+    }
+
+    loaders.babel.loaders.unshift("react-hot")
+  }
+
   const config = {
     target: "web",
     devtool: "eval",

@@ -49,7 +49,7 @@ module.exports = function compileWithWebpack(config, args = []) {
     throw new Error("No webpack config passed")
   }
 
-  let webpackConfig = createWebpackConfig(config).build()
+  let webpackConfig = createWebpackConfig(args, config).build()
 
   if (args.includes("--production")) {
     webpackConfig = modifyForProduction(webpackConfig)
