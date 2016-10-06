@@ -9,14 +9,17 @@ const createDevServer = config => {
     `webpack-dev-server/client?http://${host}:${port}`,
     "webpack/hot/only-dev-server"
   )
+  config.output.publicPath = `http://${host}:${port}/`
 
   config.plugins.push(new webpack.HotModuleReplacementPlugin())
-  config.devServer = {
-    inline: true,
-    hot: true
-  }
 
-  return new WebpackDevServer(webpack(config))
+  return new WebpackDevServer(webpack(config), {
+    inline: true,
+    hot: true,
+    stats: {
+      colors: true
+    }
+  })
 }
 
 const startDevServer = devServer => (
