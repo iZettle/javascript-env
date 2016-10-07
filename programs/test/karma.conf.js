@@ -1,7 +1,7 @@
 const jsEnvConfig = require("../../config")
 const createWebpackConfig = require("../compile/webpack.config")
 
-const webpackConfig = createWebpackConfig(jsEnvConfig.compile).build()
+const webpackConfig = createWebpackConfig([], jsEnvConfig.compile).build()
 
 delete webpackConfig.entry // The tests are all the entry points
 delete webpackConfig.output // The output is the test result
