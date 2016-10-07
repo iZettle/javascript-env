@@ -26,7 +26,7 @@ describe("createWebpackConfig()", () => {
       let config
 
       beforeEach(() => {
-        config = createWebpackConfig({
+        config = createWebpackConfig([], {
           entry: "foo",
           output: {
             path: "bar",
@@ -67,7 +67,7 @@ describe("createWebpackConfig()", () => {
       let config
 
       beforeEach(() => {
-        config = createWebpackConfig({
+        config = createWebpackConfig([], {
           includes: ["foo"]
         }).build()
       })
@@ -101,7 +101,7 @@ describe("createWebpackConfig()", () => {
     })
 
     it("should be present as an alias if present", () => {
-      const config = createWebpackConfig({
+      const config = createWebpackConfig([], {
         alias: {
           foo: "bar"
         }
@@ -118,7 +118,7 @@ describe("createWebpackConfig()", () => {
     })
 
     it("should be changed if passed", () => {
-      const configBuilder = createWebpackConfig({ exclude: "foo" })
+      const configBuilder = createWebpackConfig([], { exclude: "foo" })
       expect(configBuilder.config.module.loaders.babel.exclude).toEqual("foo")
     })
   })
@@ -131,7 +131,7 @@ describe("createWebpackConfig()", () => {
     })
 
     it("should be present if set", () => {
-      const config = createWebpackConfig({
+      const config = createWebpackConfig([], {
         externals: {
           foo: "bar"
         }
@@ -149,7 +149,7 @@ describe("createWebpackConfig()", () => {
     })
 
     it("should be set if present in config", () => {
-      const config = createWebpackConfig({
+      const config = createWebpackConfig([], {
         target: "foo"
       }).build()
 
@@ -157,13 +157,35 @@ describe("createWebpackConfig()", () => {
     })
 
     it("should set node options when present in config", () => {
-      const config = createWebpackConfig({
+      const config = createWebpackConfig([], {
         target: "node"
       }).build()
 
       expect(config.node).toEqual({
         __dirname: false
       })
+    })
+  })
+
+  describe("should handle development and production stylesheet handling", () => {
+    it("should default to production scss", () => {
+      const config = createWebpackConfig().build()
+      expect(config.module.loaders[0].loaders)
+        .toEqual(["babel?presets[]=es2015-loose,presets[]=react,presets[]=stage-1"])
+      expect(config.module.loaders[3].loader)
+        .toContain("extract-text-webpack-plugin/loader.js")
+    })
+
+    it("should work with dev-server flag", () => {
+      const config = createWebpackConfig(["--dev-server"]).build()
+      expect(config.module.loaders[0].loaders)
+        .toEqual(["react-hot",
+                  "babel?presets[]=es2015-loose,presets[]=react,presets[]=stage-1"])
+      expect(config.module.loaders[3].loaders)
+        .toEqual(["style",
+                  "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap",
+                  "postcss",
+                  "sass"])
     })
   })
 })

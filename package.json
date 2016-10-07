@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "JASMINE_CONFIG_PATH=./jasmine.json jasmine",
-    "lint": "./bin/cmd.js lint"
+    "lint": "./bin/cmd.js lint",
+    "prepublish": "npm run lint && npm run test"
   },
   "author": "",
   "license": "ISC",
