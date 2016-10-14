@@ -2,7 +2,7 @@ const path = require("path")
 const jsEnvConfig = require("../../config")
 const createWebpackConfig = require("../compile/webpack.config")
 
-// TODO: Move jsEnvNodeModulesPath to some config
+// TODO: Move nodeModulesPath to some config
 const nodeModulesPath = path.join(process.cwd(), "/node_modules")
 const webpackConfig = createWebpackConfig([], jsEnvConfig.compile).build()
 
