@@ -23,8 +23,7 @@ module.exports = function webpackTestConfig(config) {
     ],
     frameworks: [
       "jasmine",
-      "jasmine-expect-jsx",
-      "es6-shim"
+      "jasmine-expect-jsx"
     ],
     preprocessors: {
       [jsEnvConfig.test.files]: ["webpack", "sourcemap"]
