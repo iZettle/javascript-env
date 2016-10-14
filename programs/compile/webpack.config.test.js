@@ -37,7 +37,8 @@ describe("createWebpackConfig()", () => {
       })
 
       it("should set the entry", () => {
-        expect(config.entry).toEqual(["foo"])
+        // babel-polyfill is included automatically
+        expect(config.entry).toEqual(["babel-polyfill", "foo"])
       })
 
       it("should set the javascript output", () => {
@@ -50,9 +51,9 @@ describe("createWebpackConfig()", () => {
     })
 
     describe("if not set", () => {
-      it("should not set the entry", () => {
+      it("should just include the default", () => {
         const config = createWebpackConfig().build()
-        expect(config.entry).toBeUndefined()
+        expect(config.entry).toEqual(["babel-polyfill"])
       })
 
       it("should not set output", () => {
