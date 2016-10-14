@@ -28,8 +28,7 @@ module.exports = function webpackTestConfig(config) {
     },
     reporters: [
       "jasmine-expect-jsx",
-      "mocha",
-      "teamcity"
+      "mocha"
     ],
     singleRun: false,
     webpack: webpackConfig,
