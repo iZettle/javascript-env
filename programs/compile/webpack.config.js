@@ -40,6 +40,7 @@ function createWebpackConfig(args = [], opts = {}) {
 
   const config = {
     target: "web",
+    entry: ["babel-polyfill"],
     devtool: "eval",
     module: { loaders },
     resolve: {},
@@ -54,7 +55,7 @@ function createWebpackConfig(args = [], opts = {}) {
   }
 
   if (opts.entry && opts.output) {
-    config.entry = [opts.entry]
+    config.entry = config.entry.concat([opts.entry])
     config.output = opts.output
   }
 
