@@ -1,8 +1,9 @@
+const path = require("path")
 const jsEnvConfig = require("../../config")
 const createWebpackConfig = require("../compile/webpack.config")
 
 // TODO: Move jsEnvNodeModulesPath to some config
-const jsEnvNodeModulesPath = __dirname + "/../../node_modules"
+const nodeModulesPath = path.join(process.cwd(), "/node_modules")
 const webpackConfig = createWebpackConfig([], jsEnvConfig.compile).build()
 
 delete webpackConfig.entry // The tests are all the entry points
@@ -18,7 +19,7 @@ module.exports = function webpackTestConfig(config) {
   config.set({
     browsers: ["PhantomJS"],
     files: [
-      jsEnvNodeModulesPath + "/babel-polyfill/dist/polyfill.js",
+      path.join(nodeModulesPath, "/babel-polyfill/dist/polyfill.js"),
       jsEnvConfig.test.files
     ],
     frameworks: [
