@@ -23,6 +23,7 @@ module.exports = function webpackTestConfig(config) {
       jsEnvConfig.test.files
     ],
     frameworks: [
+      "jasmine-ajax",
       "jasmine",
       "jasmine-expect-jsx"
     ],
