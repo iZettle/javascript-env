@@ -32,12 +32,22 @@ module.exports = function webpackTestConfig(config) {
     },
     reporters: [
       "jasmine-expect-jsx",
-      "mocha"
+      "mocha",
+      "coverage"
     ],
     singleRun: false,
     webpack: webpackConfig,
     webpackServer: {
       noInfo: true
+    },
+    coverageReporter: {
+      dir: `${process.cwd()}/reports/coverage`,
+      reporters: [
+        { type: "html", subdir: "report-html" },
+        { type: "lcov", subdir: "report-lcov "},
+        { type: "teamcity", subdir: ".", file: "teamcity.txt" },
+        { type: "text" }
+      ]
     }
   })
 }
