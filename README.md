@@ -130,7 +130,7 @@ $ javascript-env test -- --reporters teamcity,coverage
 Or with a watcher
 
 ```sh
-$ javascript-env test -- -single-run=false
+$ javascript-env test -- --single-run=false
 ```
 
 :ring:
