@@ -121,6 +121,11 @@ And run it like so:
 $ javascript-env test
 ```
 
+Or with other reporters
+
+```sh
+$ javascript-env test -- single-run=true --reporters teamcity,coverage
+```
+
 :ring:
 :fish_cake:
-
