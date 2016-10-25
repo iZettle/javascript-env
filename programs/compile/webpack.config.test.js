@@ -174,8 +174,8 @@ describe("createWebpackConfig()", () => {
       expect(config.module.loaders[0].loaders)
         .toEqual([
           "babel?" +
-          "presets[]=es2015-loose,presets[]=react,presets[]=stage-1," +
-          "plugins[]=['__coverage__', { ignore: '*.test.js' }]"
+          "{\"presets\":[\"es2015-loose\",\"react\",\"stage-1\"]," +
+          "\"plugins\":[[\"__coverage__\",{\"ignore\":\"*.test.js\"}]]}"
         ])
       expect(config.module.loaders[3].loader)
         .toContain("extract-text-webpack-plugin/loader.js")
@@ -186,8 +186,9 @@ describe("createWebpackConfig()", () => {
       expect(config.module.loaders[0].loaders)
         .toEqual([
           "react-hot",
-          "babel?presets[]=es2015-loose,presets[]=react,presets[]=stage-1," +
-          "plugins[]=['__coverage__', { ignore: '*.test.js' }]"
+          "babel?" +
+          "{\"presets\":[\"es2015-loose\",\"react\",\"stage-1\"]," +
+          "\"plugins\":[[\"__coverage__\",{\"ignore\":\"*.test.js\"}]]}"
         ])
       expect(config.module.loaders[3].loaders)
         .toEqual(["style",
