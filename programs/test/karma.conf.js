@@ -43,9 +43,7 @@ module.exports = function webpackTestConfig(config) {
       dir: `${process.cwd()}/reports/coverage`,
       reporters: [
         { type: "html", subdir: "report-html" },
-        { type: "lcov", subdir: "report-lcov" },
-        { type: "teamcity", subdir: ".", file: "teamcity.txt" },
-        { type: "text" }
+        { type: "teamcity" }
       ]
     }
   })
