@@ -1,11 +1,18 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const autoprefixer = require("autoprefixer")
 
+const babelConfig = {
+  presets: ["es2015-loose", "react", "stage-1"],
+  plugins: [
+    ["__coverage__", { ignore: "*.test.js" }]
+  ]
+}
+
 const loaders = {
   babel: {
     test: /\.js$/,
     exclude: /node_modules/,
-    loaders: ["babel?presets[]=es2015-loose,presets[]=react,presets[]=stage-1"]
+    loaders: [`babel?${JSON.stringify(babelConfig)}`]
   },
   json: {
     test: /\.json$/,
