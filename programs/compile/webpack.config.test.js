@@ -172,7 +172,11 @@ describe("createWebpackConfig()", () => {
     it("should default to production scss", () => {
       const config = createWebpackConfig().build()
       expect(config.module.loaders[0].loaders)
-        .toEqual(["babel?presets[]=es2015-loose,presets[]=react,presets[]=stage-1"])
+        .toEqual([
+          "babel?" +
+          "presets[]=es2015-loose,presets[]=react,presets[]=stage-1," +
+          "plugins[]=['__coverage__', { ignore: '*.test.js' }]"
+        ])
       expect(config.module.loaders[3].loader)
         .toContain("extract-text-webpack-plugin/loader.js")
     })
@@ -180,8 +184,11 @@ describe("createWebpackConfig()", () => {
     it("should work with dev-server flag", () => {
       const config = createWebpackConfig(["--dev-server"]).build()
       expect(config.module.loaders[0].loaders)
-        .toEqual(["react-hot",
-                  "babel?presets[]=es2015-loose,presets[]=react,presets[]=stage-1"])
+        .toEqual([
+          "react-hot",
+          "babel?presets[]=es2015-loose,presets[]=react,presets[]=stage-1," +
+          "plugins[]=['__coverage__', { ignore: '*.test.js' }]"
+        ])
       expect(config.module.loaders[3].loaders)
         .toEqual(["style",
                   "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap",

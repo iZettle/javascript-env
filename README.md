@@ -124,7 +124,13 @@ $ javascript-env test
 Or with other reporters
 
 ```sh
-$ javascript-env test -- single-run=true --reporters teamcity,coverage
+$ javascript-env test -- --reporters teamcity,coverage
+```
+
+Or with a watcher
+
+```sh
+$ javascript-env test -- -single-run=false
 ```
 
 :ring:
