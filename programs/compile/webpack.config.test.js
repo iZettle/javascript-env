@@ -174,8 +174,7 @@ describe("createWebpackConfig()", () => {
       expect(config.module.loaders[0].loaders)
         .toEqual([
           "babel?" +
-          "{\"presets\":[\"es2015-loose\",\"react\",\"stage-1\"]," +
-          "\"plugins\":[[\"__coverage__\",{\"ignore\":\"*.test.js\"}]]}"
+          "{\"presets\":[\"es2015-loose\",\"react\",\"stage-1\"]}"
         ])
       expect(config.module.loaders[3].loader)
         .toContain("extract-text-webpack-plugin/loader.js")
@@ -187,8 +186,7 @@ describe("createWebpackConfig()", () => {
         .toEqual([
           "react-hot",
           "babel?" +
-          "{\"presets\":[\"es2015-loose\",\"react\",\"stage-1\"]," +
-          "\"plugins\":[[\"__coverage__\",{\"ignore\":\"*.test.js\"}]]}"
+          "{\"presets\":[\"es2015-loose\",\"react\",\"stage-1\"]}"
         ])
       expect(config.module.loaders[3].loaders)
         .toEqual(["style",
@@ -196,5 +194,16 @@ describe("createWebpackConfig()", () => {
                   "postcss",
                   "sass"])
     })
+
+    it("should work with coverage flag", () => {
+      const config = createWebpackConfig(["--coverage"]).build()
+      expect(config.module.loaders[0].loaders)
+        .toEqual([
+          "babel?" +
+          "{\"presets\":[\"es2015-loose\",\"react\",\"stage-1\"]," +
+          "\"plugins\":[[\"__coverage__\",{\"ignore\":\"*.test.js\"}]]}"
+        ])
+    })
+
   })
 })
