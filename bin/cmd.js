@@ -18,7 +18,6 @@ if (!programs[name]) {
 }
 
 const program = programs[name](args)
-console.log(program)
 spawn(program.command, program.args, { stdio: "inherit" }).on("exit", () => {
   process.exit(0)
 })
