@@ -4,7 +4,7 @@ const createWebpackConfig = require("../compile/webpack.config")
 
 // TODO: Move nodeModulesPath to some config
 const nodeModulesPath = path.join(process.cwd(), "/node_modules")
-const webpackConfig = createWebpackConfig([], jsEnvConfig.compile).build()
+const webpackConfig = createWebpackConfig(["--coverage"], jsEnvConfig.compile).build()
 
 delete webpackConfig.entry // The tests are all the entry points
 delete webpackConfig.output // The output is the test result

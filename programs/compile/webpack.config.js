@@ -1,18 +1,25 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const autoprefixer = require("autoprefixer")
 
-const babelConfig = {
-  presets: ["es2015-loose", "react", "stage-1"],
-  plugins: [
-    ["__coverage__", { ignore: "*.test.js" }]
-  ]
+const createBabelConfig = args => {
+  const babelConfig = {
+    presets: ["es2015-loose", "react", "stage-1"]
+  }
+
+  if (args.includes("--coverage")) {
+    babelConfig.plugins = [
+      ["__coverage__", { ignore: "*.test.js" }]
+    ]
+  }
+
+  return babelConfig
 }
 
-const loaders = {
+const createLoders = args => ({
   babel: {
     test: /\.js$/,
     exclude: /node_modules/,
-    loaders: [`babel?${JSON.stringify(babelConfig)}`]
+    loaders: [`babel?${JSON.stringify(createBabelConfig(args))}`]
   },
   json: {
     test: /\.json$/,
@@ -29,9 +36,10 @@ const loaders = {
       "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap!postcss!sass"
     )
   }
-}
+})
 
 function createWebpackConfig(args = [], opts = {}) {
+  const loaders = createLoders(args)
   if (args.includes("--dev-server")) {
     loaders.sass = {
       test: /\.scss$/,
