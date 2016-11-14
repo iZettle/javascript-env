@@ -26,20 +26,25 @@ function createCompiler(config) {
   }
 }
 
-function modifyForProduction(config) {
+function modifyForProduction(config, args) {
   config.devtool = "cheap-module-source-map"
   config.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false },
-      comments: false,
-      minimize: true
-    }),
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("production")
     })
   )
+
+  if (!args.includes("--no-uglify")) {
+    config.plugins.push(
+      new webpack.optimize.UglifyJsPlugin({
+        compress: { warnings: false },
+        comments: false,
+        minimize: true
+      })
+    )
+  }
 
   return config
 }
@@ -52,7 +57,7 @@ module.exports = function compileWithWebpack(config, args = []) {
   let webpackConfig = createWebpackConfig(args, config).build()
 
   if (args.includes("--production")) {
-    webpackConfig = modifyForProduction(webpackConfig)
+    webpackConfig = modifyForProduction(webpackConfig, args)
   }
 
   const compiler = createCompiler(webpackConfig)
@@ -65,4 +70,3 @@ module.exports = function compileWithWebpack(config, args = []) {
     compiler.run()
   }
 }
-
