@@ -204,6 +204,5 @@ describe("createWebpackConfig()", () => {
           "\"plugins\":[[\"__coverage__\",{\"ignore\":\"*.test.js\"}]]}"
         ])
     })
-
   })
 })
