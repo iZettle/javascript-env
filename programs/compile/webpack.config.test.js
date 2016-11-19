@@ -189,10 +189,12 @@ describe("createWebpackConfig()", () => {
           "{\"presets\":[\"es2015-loose\",\"react\",\"stage-1\"]}"
         ])
       expect(config.module.loaders[3].loaders)
-        .toEqual(["style",
-                  "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap",
-                  "postcss",
-                  "sass"])
+        .toEqual([
+          "style",
+          "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap",
+          "postcss",
+          "sass"
+        ])
     })
 
     it("should work with coverage flag", () => {
