@@ -18,6 +18,13 @@ if (!programs[name]) {
 }
 
 const program = programs[name](args)
+
+if (name === "test") {
+  program.args.unshift(program.command)
+  program.args.unshift("--max_old_space_size=4096")
+  program.command = "node"
+}
+
 spawn(program.command, program.args, { stdio: "inherit" }).on("exit", () => {
   process.exit(0)
 })
