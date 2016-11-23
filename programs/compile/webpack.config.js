@@ -83,8 +83,7 @@ function createWebpackConfig(args = [], opts = {}) {
     plugins: [
       new ExtractTextPlugin({
         filename: opts.outputCss || "styles.css",
-        allChunks: false,
-        disable: false
+        allChunks: true
       })
     ]
   }
