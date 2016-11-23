@@ -1,4 +1,5 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const autoprefixer = require("autoprefixer")
 
 const createBabelOptions = (args, opts) => {
   const babelConfig = {
@@ -37,26 +38,31 @@ const createRules = (args, opts) => ({
   },
   sass: {
     test: /\.scss$/,
-    use: [{
-      loader: ExtractTextPlugin.extract({
-        fallbackLoader: "style-loader",
-        loader: [{
-          loader: "css-loader",
-          options: {
-            modules: true,
-            sourceMap: true,
-            localIdentName: "[local]---[hash:base64:5]"
+    loader: ExtractTextPlugin.extract({
+      fallbackLoader: "style-loader",
+      loader: [{
+        loader: "css-loader",
+        query: {
+          modules: true,
+          sourceMap: true,
+          localIdentName: "[local]---[hash:base64:5]"
+        }
+      }, {
+        loader: "postcss-loader",
+        options: {
+          plugins() {
+            return [
+              autoprefixer({ browsers: ["last 5 versions"] })
+            ]
           }
-        }, {
-          loader: "postcss-loader"
-        }, {
-          loader: "sass-loader",
-          query: {
-            includePaths: opts.includes
-          }
-        }]
-      })
-    }]
+        }
+      }, {
+        loader: "sass-loader",
+        query: {
+          includePaths: opts.includes
+        }
+      }]
+    })
   }
 })
 

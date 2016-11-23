@@ -79,7 +79,7 @@ describe("createWebpackConfig()", () => {
       })
 
       it("should be present in the sass loader config", () => {
-        const loader = builder.config.module.rules.sass.use[0].loader
+        const loader = builder.config.module.rules.sass.loader
         expect(loader).toMatch(/({"includePaths":\["foo"\]})/g)
       })
     })
@@ -92,7 +92,7 @@ describe("createWebpackConfig()", () => {
 
       it("should not be present in sassLoader", () => {
         const builder = createWebpackConfig()
-        const loader = builder.config.module.rules.sass.use[0].loader
+        const loader = builder.config.module.rules.sass.loader
         expect(loader).not.toMatch(/({"includePaths":\["foo"\]})/)
       })
     })
@@ -178,7 +178,7 @@ describe("createWebpackConfig()", () => {
       expect(config.module.rules[0].use[0].options)
         .toEqual({ presets: ["es2015-loose", "react", "stage-1"] })
 
-      expect(config.module.rules[3].use[0].loader)
+      expect(config.module.rules[3].loader)
         .toContain("extract-text-webpack-plugin/loader.js")
     })
 
