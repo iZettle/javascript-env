@@ -1,7 +1,7 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const autoprefixer = require("autoprefixer")
 
-const createBabelOptions = (args, opts) => {
+const createBabelOptions = args => {
   const babelConfig = {
     presets: ["es2015-loose", "react", "stage-1"]
   }
@@ -21,7 +21,7 @@ const createRules = (args, opts) => ({
     exclude: /node_modules/,
     use: [{
       loader: "babel-loader",
-      options: createBabelOptions(args, opts)
+      options: createBabelOptions(args)
     }]
   },
   json: {
@@ -71,6 +71,31 @@ function createWebpackConfig(args = [], opts = {}) {
 
   if (args.includes("--dev-server")) {
     rules.babel.use.unshift({ loader: "react-hot-loader" })
+    delete rules.sass.loader
+    rules.sass.use = [{
+      loader: "style-loader"
+    }, {
+      loader: "css-loader",
+      query: {
+        modules: true,
+        sourceMap: true,
+        localIdentName: "[local]---[hash:base64:5]"
+      }
+    }, {
+      loader: "postcss-loader",
+      options: {
+        plugins() {
+          return [
+            autoprefixer({ browsers: ["last 5 versions"] })
+          ]
+        }
+      }
+    }, {
+      loader: "sass-loader",
+      query: {
+        includePaths: opts.includes
+      }
+    }]
   }
 
   const config = {
