@@ -19,6 +19,7 @@
     "react"
   ],
   "rules": {
+    "arrow-parens": ["error", "as-needed"],
     "comma-dangle": ["error", "never"],
     "consistent-return": 0,
     "import/no-extraneous-dependencies": 0,
