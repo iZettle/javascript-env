@@ -93,6 +93,7 @@ function createWebpackConfig(args = [], opts = {}) {
     }, {
       loader: "sass-loader",
       query: {
+        sourceMap: true,
         includePaths: opts.includes
       }
     }]
