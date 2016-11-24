@@ -23,7 +23,7 @@ const createDevServer = config => {
 }
 
 const startDevServer = devServer => (
-  devServer.listen(port, host, (error) => {
+  devServer.listen(port, host, error => {
     if (error) return console.log(error)
     console.log(`Listening at http://${host}:${port}/`)
   })
