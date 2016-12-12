@@ -80,7 +80,7 @@ describe("createWebpackConfig()", () => {
 
       it("should be present in the sass loader config", () => {
         const loader = builder.config.module.rules.sass.loader
-        expect(loader).toMatch(/({"includePaths":\["foo"\]})/g)
+        expect(loader).toMatch(/({"includePaths":\["foo"]})/g)
       })
     })
 
@@ -93,7 +93,7 @@ describe("createWebpackConfig()", () => {
       it("should not be present in sassLoader", () => {
         const builder = createWebpackConfig()
         const loader = builder.config.module.rules.sass.loader
-        expect(loader).not.toMatch(/({"includePaths":\["foo"\]})/)
+        expect(loader).not.toMatch(/({"includePaths":\["foo"]})/)
       })
     })
   })
