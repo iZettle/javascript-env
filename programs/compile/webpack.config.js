@@ -15,6 +15,43 @@ const createBabelOptions = args => {
   return babelConfig
 }
 
+const createStyleLoader = (args, opts) => {
+  const styleLoader = {
+    fallbackLoader: "style-loader",
+    loader: [{
+      loader: "css-loader",
+      query: {
+        modules: true,
+        sourceMap: true,
+        localIdentName: "[local]---[hash:base64:5]"
+      }
+    }, {
+      loader: "postcss-loader",
+      options: {
+        plugins() {
+          return [
+            autoprefixer({ browsers: ["last 5 versions"] })
+          ]
+        }
+      }
+    }, {
+      loader: "sass-loader",
+      query: {
+        sourceMap: true
+      }
+    }]
+  }
+
+  if (opts.includes) {
+    const sassLoader = styleLoader.loader.find(c => c.loader === "sass-loader")
+    if (sassLoader) {
+      sassLoader.query.includePaths = opts.includes
+    }
+  }
+
+  return styleLoader
+}
+
 const createRules = (args, opts) => ({
   babel: {
     test: /\.js$/,
@@ -38,31 +75,7 @@ const createRules = (args, opts) => ({
   },
   sass: {
     test: /\.scss$/,
-    loader: ExtractTextPlugin.extract({
-      fallbackLoader: "style-loader",
-      loader: [{
-        loader: "css-loader",
-        query: {
-          modules: true,
-          sourceMap: true,
-          localIdentName: "[local]---[hash:base64:5]"
-        }
-      }, {
-        loader: "postcss-loader",
-        options: {
-          plugins() {
-            return [
-              autoprefixer({ browsers: ["last 5 versions"] })
-            ]
-          }
-        }
-      }, {
-        loader: "sass-loader",
-        query: {
-          includePaths: opts.includes
-        }
-      }]
-    })
+    loader: ExtractTextPlugin.extract(createStyleLoader(args, opts))
   }
 })
 
@@ -93,10 +106,17 @@ function createWebpackConfig(args = [], opts = {}) {
     }, {
       loader: "sass-loader",
       query: {
-        sourceMap: true,
-        includePaths: opts.includes
+        sourceMap: true
       }
     }]
+
+    if (opts.includes) {
+      const sassLoader = rules.sass.use.find(c => c.loader === "sass-loader")
+
+      if (sassLoader) {
+        sassLoader.query.includePaths = opts.includes
+      }
+    }
   }
 
   const config = {
