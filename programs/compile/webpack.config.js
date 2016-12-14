@@ -3,13 +3,18 @@ const autoprefixer = require("autoprefixer")
 
 const createBabelOptions = args => {
   const babelConfig = {
-    presets: ["es2015-loose", "react", "stage-1"]
+    presets: ["es2015-loose", "react", "stage-1"],
+    plugins: []
   }
 
   if (args.includes("--coverage")) {
-    babelConfig.plugins = [
+    babelConfig.plugins.push(
       ["__coverage__", { ignore: "*.test.js" }]
-    ]
+    )
+  }
+
+  if (args.includes("--dev-server")) {
+    babelConfig.plugins.push("react-hot-loader/babel")
   }
 
   return babelConfig
@@ -83,7 +88,6 @@ function createWebpackConfig(args = [], opts = {}) {
   const rules = createRules(args, opts)
 
   if (args.includes("--dev-server")) {
-    rules.babel.use.unshift({ loader: "react-hot-loader" })
     delete rules.sass.loader
     rules.sass.use = [{
       loader: "style-loader"

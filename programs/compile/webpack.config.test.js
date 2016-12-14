@@ -176,7 +176,7 @@ describe("createWebpackConfig()", () => {
       const config = createWebpackConfig().build()
 
       expect(config.module.rules[0].use[0].options)
-        .toEqual({ presets: ["es2015-loose", "react", "stage-1"] })
+        .toEqual({ presets: ["es2015-loose", "react", "stage-1"], plugins: [] })
 
       expect(config.module.rules[3].loader)
         .toContain("extract-text-webpack-plugin/loader.js")
@@ -185,11 +185,11 @@ describe("createWebpackConfig()", () => {
     it("should work with dev-server flag", () => {
       const config = createWebpackConfig(["--dev-server"]).build()
 
-      expect(config.module.rules[0].use[0].loader)
-        .toEqual("react-hot-loader")
-
-      expect(config.module.rules[0].use[1].loader)
-        .toEqual("babel-loader")
+      expect(config.module.rules[0].use[0].options)
+        .toEqual({
+          presets: ["es2015-loose", "react", "stage-1"],
+          plugins: ["react-hot-loader/babel"]
+        })
     })
 
     it("should work with coverage flag", () => {
