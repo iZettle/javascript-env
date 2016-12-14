@@ -1,72 +1,141 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const autoprefixer = require("autoprefixer")
 
-const createBabelConfig = args => {
+const createBabelOptions = args => {
   const babelConfig = {
-    presets: ["es2015-loose", "react", "stage-1"]
+    presets: ["es2015-loose", "react", "stage-1"],
+    plugins: []
   }
 
   if (args.includes("--coverage")) {
-    babelConfig.plugins = [
+    babelConfig.plugins.push(
       ["__coverage__", { ignore: "*.test.js" }]
-    ]
+    )
+  }
+
+  if (args.includes("--dev-server")) {
+    babelConfig.plugins.push("react-hot-loader/babel")
   }
 
   return babelConfig
 }
 
-const createLoders = args => ({
+const createStyleLoader = (args, opts) => {
+  const styleLoader = {
+    fallbackLoader: "style-loader",
+    loader: [{
+      loader: "css-loader",
+      query: {
+        modules: true,
+        sourceMap: true,
+        localIdentName: "[local]---[hash:base64:5]"
+      }
+    }, {
+      loader: "postcss-loader",
+      options: {
+        plugins() {
+          return [
+            autoprefixer({ browsers: ["last 5 versions"] })
+          ]
+        }
+      }
+    }, {
+      loader: "sass-loader",
+      query: {
+        sourceMap: true
+      }
+    }]
+  }
+
+  if (opts.includes) {
+    const sassLoader = styleLoader.loader.find(c => c.loader === "sass-loader")
+    if (sassLoader) {
+      sassLoader.query.includePaths = opts.includes
+    }
+  }
+
+  return styleLoader
+}
+
+const createRules = (args, opts) => ({
   babel: {
     test: /\.js$/,
     exclude: /node_modules/,
-    loaders: [`babel?${JSON.stringify(createBabelConfig(args))}`]
+    use: [{
+      loader: "babel-loader",
+      options: createBabelOptions(args)
+    }]
   },
   json: {
     test: /\.json$/,
-    loader: "json"
+    use: [{
+      loader: "json-loader"
+    }]
   },
-  raw: {
+  svg: {
     test: /\.svg$/,
-    loader: "raw"
+    use: [{
+      loader: "raw-loader"
+    }]
   },
   sass: {
     test: /\.scss$/,
-    loader: ExtractTextPlugin.extract(
-      "style",
-      "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap!postcss!sass"
-    )
+    loader: ExtractTextPlugin.extract(createStyleLoader(args, opts))
   }
 })
 
 function createWebpackConfig(args = [], opts = {}) {
-  const loaders = createLoders(args)
-  if (args.includes("--dev-server")) {
-    loaders.sass = {
-      test: /\.scss$/,
-      loaders: [
-        "style",
-        "css?modules&localIdentName=[local]---[hash:base64:5]&sourceMap",
-        "postcss",
-        "sass"]
-    }
+  const rules = createRules(args, opts)
 
-    loaders.babel.loaders.unshift("react-hot")
+  if (args.includes("--dev-server")) {
+    delete rules.sass.loader
+    rules.sass.use = [{
+      loader: "style-loader"
+    }, {
+      loader: "css-loader",
+      query: {
+        modules: true,
+        sourceMap: true,
+        localIdentName: "[local]---[hash:base64:5]"
+      }
+    }, {
+      loader: "postcss-loader",
+      options: {
+        plugins() {
+          return [
+            autoprefixer({ browsers: ["last 5 versions"] })
+          ]
+        }
+      }
+    }, {
+      loader: "sass-loader",
+      query: {
+        sourceMap: true
+      }
+    }]
+
+    if (opts.includes) {
+      const sassLoader = rules.sass.use.find(c => c.loader === "sass-loader")
+
+      if (sassLoader) {
+        sassLoader.query.includePaths = opts.includes
+      }
+    }
   }
 
   const config = {
     target: "web",
     entry: ["babel-polyfill"],
     devtool: "eval",
-    module: { loaders },
+    module: { rules },
     resolve: {},
     externals: {},
     plugins: [
-      new ExtractTextPlugin(opts.outputCss || "styles.css", { allChunks: true })
-    ],
-    sassLoader: {},
-    postcss() {
-      return [autoprefixer({ browsers: ["last 5 versions"] })]
-    }
+      new ExtractTextPlugin({
+        filename: opts.outputCss || "styles.css",
+        allChunks: true
+      })
+    ]
   }
 
   if (opts.entry && opts.output) {
@@ -83,12 +152,11 @@ function createWebpackConfig(args = [], opts = {}) {
   }
 
   if (opts.includes) {
-    config.resolve.modulesDirectories = opts.includes
-    config.sassLoader.includePaths = opts.includes
+    config.resolve.modules = opts.includes
   }
 
   if (opts.exclude) {
-    config.module.loaders.babel.exclude = opts.exclude
+    config.module.rules.babel.exclude = opts.exclude
   }
 
   if (opts.alias) {
@@ -102,8 +170,8 @@ function createWebpackConfig(args = [], opts = {}) {
   return {
     config,
     build() {
-      this.config.module.loaders = Object.keys(this.config.module.loaders)
-        .map(key => this.config.module.loaders[key])
+      this.config.module.rules = Object.keys(this.config.module.rules)
+        .map(key => this.config.module.rules[key])
 
       return this.config
     }
