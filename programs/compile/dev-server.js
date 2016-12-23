@@ -18,7 +18,8 @@ const createDevServer = config => {
     inline: true,
     hot: true,
     stats: {
-      colors: true
+      colors: true,
+      chunkModules: false
     }
   })
 }
