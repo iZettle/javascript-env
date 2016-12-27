@@ -14,14 +14,7 @@ const createDevServer = config => {
 
   config.plugins.push(new webpack.HotModuleReplacementPlugin())
 
-  return new WebpackDevServer(webpack(config), {
-    inline: true,
-    hot: true,
-    stats: {
-      colors: true,
-      chunkModules: false
-    }
-  })
+  return new WebpackDevServer(webpack(config), config.devServer)
 }
 
 const startDevServer = devServer => (

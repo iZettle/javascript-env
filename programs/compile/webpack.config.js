@@ -135,7 +135,16 @@ function createWebpackConfig(args = [], opts = {}) {
         filename: opts.outputCss || "styles.css",
         allChunks: true
       })
-    ]
+    ],
+    devServer: {
+      historyApiFallback: true,
+      inline: true,
+      hot: true,
+      stats: {
+        colors: true,
+        chunkModules: false
+      }
+    }
   }
 
   if (opts.entry && opts.output) {
@@ -165,6 +174,10 @@ function createWebpackConfig(args = [], opts = {}) {
 
   if (opts.externals) {
     Object.assign(config.externals, opts.externals)
+  }
+
+  if (opts.devServer) {
+    Object.assign(config.devServer, opts.devServer)
   }
 
   return {
