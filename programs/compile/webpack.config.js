@@ -144,7 +144,10 @@ function createWebpackConfig(args = [], opts = {}) {
         colors: true,
         chunkModules: false
       }
-    }
+    },
+    performance: {
+      hints: false
+    }    
   }
 
   if (opts.entry && opts.output) {
