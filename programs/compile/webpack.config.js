@@ -137,7 +137,6 @@ function createWebpackConfig(args = [], opts = {}) {
       })
     ],
     devServer: {
-      historyApiFallback: true,
       inline: true,
       hot: true,
       stats: {
@@ -147,7 +146,7 @@ function createWebpackConfig(args = [], opts = {}) {
     },
     performance: {
       hints: false
-    }    
+    }
   }
 
   if (opts.entry && opts.output) {
