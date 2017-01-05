@@ -3,7 +3,7 @@ const autoprefixer = require("autoprefixer")
 
 const createBabelOptions = args => {
   const babelConfig = {
-    presets: ["es2015-loose", "react", "stage-1"],
+    presets: [["es2015", { "loose" : true }], "react", "stage-1"],
     plugins: []
   }
 
@@ -135,7 +135,18 @@ function createWebpackConfig(args = [], opts = {}) {
         filename: opts.outputCss || "styles.css",
         allChunks: true
       })
-    ]
+    ],
+    devServer: {
+      inline: true,
+      hot: true,
+      stats: {
+        colors: true,
+        chunkModules: false
+      }
+    },
+    performance: {
+      hints: false
+    }
   }
 
   if (opts.entry && opts.output) {
@@ -165,6 +176,10 @@ function createWebpackConfig(args = [], opts = {}) {
 
   if (opts.externals) {
     Object.assign(config.externals, opts.externals)
+  }
+
+  if (opts.devServer) {
+    Object.assign(config.devServer, opts.devServer)
   }
 
   return {
