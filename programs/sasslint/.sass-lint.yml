@@ -63,7 +63,7 @@ rules:
   border-zero: 0
   brace-style: 1
   clean-import-paths: 1
-  empty-args: 1
+  empty-args: 0
   hex-length: 1
   hex-notation: 1
   indentation: 1
@@ -74,7 +74,7 @@ rules:
     - 2
     -
       style: double
-  shorthand-values: 0
+  shorthand-values: 1
   url-quotes: 1
   variable-for-property: 1
   zero-unit: 1
