@@ -7,19 +7,14 @@ const port = 8000
 const createDevServer = config => {
   config.entry.unshift(
     `webpack-dev-server/client?http://${host}:${port}`,
-    "webpack/hot/only-dev-server"
+    "webpack/hot/only-dev-server",
+    "react-hot-loader/patch"
   )
   config.output.publicPath = `http://${host}:${port}/`
 
   config.plugins.push(new webpack.HotModuleReplacementPlugin())
 
-  return new WebpackDevServer(webpack(config), {
-    inline: true,
-    hot: true,
-    stats: {
-      colors: true
-    }
-  })
+  return new WebpackDevServer(webpack(config), config.devServer)
 }
 
 const startDevServer = devServer => (

@@ -5,7 +5,7 @@ module.exports = {
     // the webpack entry file
     entry: "app/ui",
 
-    // wehpack puts its bundles in this dir
+    // webpack puts its bundles in this dir
     output: {
       path: "public",
       filename: "bundle.js"
@@ -26,6 +26,19 @@ module.exports = {
     alias: {
       inugami: "node_modules/inugami/src",
       react: "node_modules/react"
+    },
+
+    // settings for dev server
+    // See settings: https://webpack.github.io/docs/webpack-dev-server.html
+    devServer: {
+      // e.g. redirect all calls to /api/ to another
+      // server at port 3100
+      proxy: {
+        "/api/**": {
+          target: "http://0.0.0.0:3100",
+          secure: false
+        }
+      }
     }
 
   },
