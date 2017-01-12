@@ -46,6 +46,15 @@ $ javascript-env lint
 
 You can make the **Atom** `linter-eslint` package use this projects `.eslintrc` file by putting `./node_modules/javascript-env/programs/lint/.eslintrc` into the `.eslintrc Path` text field.
 
+### sasslint
+Uses `sass-lint` and the `programs/sasslint/.sass-lint.yml` rule file. Will check linting on all files named `*.scss` and `*.sass` except files in `node_modules`. Any arguments supplied will just be passed to sass-lint.
+
+Run it like 
+
+```
+$ javascript-env sasslint
+```
+
 ### compile - 'cause configuring webpack is a pain
 
 Gives us the ability to use es2015 and jsx without the hassle of setting up and configuring seventyeleven packages.
