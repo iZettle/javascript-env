@@ -31,15 +31,15 @@ module.exports = {
     // settings for dev server
     // See settings: https://webpack.github.io/docs/webpack-dev-server.html
     devServer: {
-      // e.g. redirect all calls to /api/ to another 
+      // e.g. redirect all calls to /api/ to another
       // server at port 3100
       proxy: {
-        '/api/**': {
-          target: 'http://0.0.0.0:3100',
+        "/api/**": {
+          target: "http://0.0.0.0:3100",
           secure: false
         }
       }
-    }    
+    }
 
   },
 

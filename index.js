@@ -1,4 +1,4 @@
-var rhl = require("react-hot-loader")
+const rhl = require("react-hot-loader")
 
 module.exports = {
   AppContainer: rhl.AppContainer

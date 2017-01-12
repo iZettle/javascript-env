@@ -176,7 +176,7 @@ describe("createWebpackConfig()", () => {
       const config = createWebpackConfig().build()
 
       expect(config.module.rules[0].use[0].options)
-        .toEqual({ presets: ["es2015-loose", "react", "stage-1"], plugins: [] })
+        .toEqual({ presets: [["es2015", { loose: true }], "react", "stage-1"], plugins: [] })
 
       expect(config.module.rules[3].loader)
         .toContain("extract-text-webpack-plugin/loader.js")
@@ -187,7 +187,7 @@ describe("createWebpackConfig()", () => {
 
       expect(config.module.rules[0].use[0].options)
         .toEqual({
-          presets: ["es2015-loose", "react", "stage-1"],
+          presets: [["es2015", { loose: true }], "react", "stage-1"],
           plugins: ["react-hot-loader/babel"]
         })
     })
@@ -197,7 +197,7 @@ describe("createWebpackConfig()", () => {
 
       expect(config.module.rules[0].use[0].options)
         .toEqual({
-          presets: ["es2015-loose", "react", "stage-1"],
+          presets: [["es2015", { loose: true }], "react", "stage-1"],
           plugins: [["__coverage__", { ignore: "*.test.js" }]]
         })
     })

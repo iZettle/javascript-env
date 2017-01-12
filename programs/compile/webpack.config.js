@@ -3,7 +3,7 @@ const autoprefixer = require("autoprefixer")
 
 const createBabelOptions = args => {
   const babelConfig = {
-    presets: [["es2015", { "loose" : true }], "react", "stage-1"],
+    presets: [["es2015", { loose: true }], "react", "stage-1"],
     plugins: []
   }
 
