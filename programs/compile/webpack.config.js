@@ -1,5 +1,6 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const autoprefixer = require("autoprefixer")
+const webpack = require("webpack")
 
 const createBabelOptions = args => {
   const babelConfig = {
@@ -134,6 +135,9 @@ function createWebpackConfig(args = [], opts = {}) {
       new ExtractTextPlugin({
         filename: opts.outputCss || "styles.css",
         allChunks: true
+      }),
+      new webpack.optimize.CommonsChunkPlugin({
+        names: ["vendor", "manifest"]
       })
     ],
     devServer: {
@@ -150,8 +154,15 @@ function createWebpackConfig(args = [], opts = {}) {
   }
 
   if (opts.entry && opts.output) {
-    config.entry = config.entry.concat([opts.entry])
+    // config.entry = config.entry.concat([opts.entry])
+    config.entry = {
+      main: ["babel-polyfill", opts.entry]
+    }
     config.output = opts.output
+  }
+
+  if (opts.vendor) {
+    config.entry.vendor = opts.vendor
   }
 
   if (opts.target) {
