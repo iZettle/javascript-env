@@ -38,7 +38,7 @@ describe("createWebpackConfig()", () => {
 
       it("should set the entry", () => {
         // babel-polyfill is included automatically
-        expect(config.entry).toEqual(["babel-polyfill", "foo"])
+        expect(config.entry).toEqual({ main: ["babel-polyfill", "foo"] })
       })
 
       it("should set the javascript output", () => {
