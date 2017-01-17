@@ -1,4 +1,5 @@
 const webpack = require("webpack")
+const AssetsPlugin = require("assets-webpack-plugin")
 const devServer = require("./dev-server")
 const createWebpackConfig = require("./webpack.config")
 
@@ -33,6 +34,12 @@ function modifyForProduction(config, args) {
       "process.env.NODE_ENV": JSON.stringify("production")
     })
   )
+  config.plugins.push(
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ["vendor", "manifest"]
+    })
+  )
+  config.plugins.push(new AssetsPlugin())
 
   if (!args.includes("--no-uglify")) {
     config.plugins.push(

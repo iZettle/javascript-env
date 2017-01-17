@@ -1,7 +1,5 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const autoprefixer = require("autoprefixer")
-const webpack = require("webpack")
-const AssetsPlugin = require("assets-webpack-plugin")
 
 const createBabelOptions = args => {
   const babelConfig = {
@@ -136,11 +134,7 @@ function createWebpackConfig(args = [], opts = {}) {
       new ExtractTextPlugin({
         filename: opts.outputCss || "styles.css",
         allChunks: true
-      }),
-      new webpack.optimize.CommonsChunkPlugin({
-        names: ["vendor"]
-      }),
-      new AssetsPlugin()
+      })
     ],
     devServer: {
       inline: true,
