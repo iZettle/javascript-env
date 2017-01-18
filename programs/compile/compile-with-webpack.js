@@ -36,7 +36,8 @@ function modifyForProduction(config, args) {
   )
   config.plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
-      names: ["vendor", "manifest"]
+      names: ["vendor", "manifest"],
+      minChunks: Infinity
     })
   )
   config.plugins.push(new AssetsPlugin())
