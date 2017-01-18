@@ -29,18 +29,16 @@ function createCompiler(config) {
 
 function modifyForProduction(config, args) {
   config.devtool = "cheap-module-source-map"
-  config.plugins.push(
+  config.plugins = config.plugins.concat([
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("production")
-    })
-  )
-  config.plugins.push(
+    }),
     new webpack.optimize.CommonsChunkPlugin({
-      names: ["vendor", "manifest"],
+      names: ["vendor"],
       minChunks: Infinity
-    })
-  )
-  config.plugins.push(new AssetsPlugin())
+    }),
+    new AssetsPlugin()
+  ])
 
   if (!args.includes("--no-uglify")) {
     config.plugins.push(

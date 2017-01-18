@@ -150,7 +150,6 @@ function createWebpackConfig(args = [], opts = {}) {
   }
 
   if (opts.entry && opts.output) {
-    // config.entry = config.entry.concat([opts.entry])
     config.entry = {
       main: ["babel-polyfill", opts.entry]
     }
