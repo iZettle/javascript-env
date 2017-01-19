@@ -1,4 +1,5 @@
 const createWebpackConfig = require("./webpack.config")
+const webpack = require("webpack")
 
 describe("createWebpackConfig()", () => {
   describe("with no options", () => {
@@ -37,8 +38,7 @@ describe("createWebpackConfig()", () => {
       })
 
       it("should set the entry", () => {
-        // babel-polyfill is included automatically
-        expect(config.entry).toEqual(["babel-polyfill", "foo"])
+        expect(config.entry).toEqual({ main: ["babel-polyfill", "foo"] })
       })
 
       it("should set the javascript output", () => {
@@ -200,6 +200,23 @@ describe("createWebpackConfig()", () => {
           presets: [["es2015", { loose: true }], "react", "stage-1"],
           plugins: [["__coverage__", { ignore: "*.test.js" }]]
         })
+    })
+  })
+
+  describe("code splitting", () => {
+    it("includes common chunk plugin", () => {
+      const config = createWebpackConfig(["--production"], {
+        vendor: ["foo", "bar"],
+        output: "bundle.js",
+        entry: "main.js"
+      }).build()
+      const chunkPlugin = config.plugins.find(p => p instanceof webpack.optimize.CommonsChunkPlugin)
+
+      expect(chunkPlugin).toBeDefined()
+      expect(config.entry).toEqual({
+        main: ["babel-polyfill", "main.js"],
+        vendor: ["foo", "bar"]
+      })
     })
   })
 })

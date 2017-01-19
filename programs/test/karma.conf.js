@@ -10,6 +10,7 @@ delete webpackConfig.output // The output is the test result
 delete webpackConfig.vendor // No vendor is needed
 webpackConfig.entry = jsEnvConfig.test.files
 webpackConfig.devtool = "inline-source-map" // Produces more quiet error output
+
 Object.assign(webpackConfig.externals, {
   "react/addons": true,
   "react/lib/ExecutionEnvironment": true,

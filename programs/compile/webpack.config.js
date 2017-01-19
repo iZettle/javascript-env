@@ -1,5 +1,7 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const autoprefixer = require("autoprefixer")
+const webpack = require("webpack")
+const AssetsPlugin = require("assets-webpack-plugin")
 
 const createBabelOptions = args => {
   const babelConfig = {
@@ -150,8 +152,32 @@ function createWebpackConfig(args = [], opts = {}) {
   }
 
   if (opts.entry && opts.output) {
-    config.entry = config.entry.concat([opts.entry])
+    const chunks = ["manifest"]
+    config.entry = {
+      main: ["babel-polyfill", opts.entry]
+    }
+
+    if (opts.vendor) {
+      config.entry.vendor = opts.vendor
+      chunks.push("vendor")
+    }
+
     config.output = opts.output
+    config.plugins = config.plugins.concat([
+      new webpack.optimize.CommonsChunkPlugin({
+        names: chunks,
+        minChunks: Infinity
+      }),
+      new AssetsPlugin()
+    ])
+
+    if (args.includes("--dev-server")) {
+      // Dev server can't handle [chunkhash]
+      // this will make all files have the
+      // same [hash] but it doesn't matter
+      // in dev-server env
+      config.output.filename = "[hash].[name].js"
+    }
   }
 
   if (opts.target) {
