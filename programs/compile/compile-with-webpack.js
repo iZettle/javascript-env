@@ -1,5 +1,4 @@
 const webpack = require("webpack")
-const AssetsPlugin = require("assets-webpack-plugin")
 const devServer = require("./dev-server")
 const createWebpackConfig = require("./webpack.config")
 
@@ -29,16 +28,11 @@ function createCompiler(config) {
 
 function modifyForProduction(config, args) {
   config.devtool = "cheap-module-source-map"
-  config.plugins = config.plugins.concat([
+  config.plugins.push(
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("production")
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ["vendor"],
-      minChunks: Infinity
-    }),
-    new AssetsPlugin()
-  ])
+    })
+  )
 
   if (!args.includes("--no-uglify")) {
     config.plugins.push(

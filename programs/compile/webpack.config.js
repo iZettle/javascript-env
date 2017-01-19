@@ -1,5 +1,7 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const autoprefixer = require("autoprefixer")
+const webpack = require("webpack")
+const AssetsPlugin = require("assets-webpack-plugin")
 
 const createBabelOptions = args => {
   const babelConfig = {
@@ -156,8 +158,15 @@ function createWebpackConfig(args = [], opts = {}) {
     config.output = opts.output
   }
 
-  if (opts.vendor) {
+  if (opts.vendor && args.includes("--production")) {
     config.entry.vendor = opts.vendor
+    config.plugins = config.plugins.concat([
+      new webpack.optimize.CommonsChunkPlugin({
+        names: ["vendor", "manifest"],
+        minChunks: Infinity
+      }),
+      new AssetsPlugin()
+    ])
   }
 
   if (opts.target) {

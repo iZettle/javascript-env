@@ -1,4 +1,5 @@
 const createWebpackConfig = require("./webpack.config")
+const webpack = require("webpack")
 
 describe("createWebpackConfig()", () => {
   describe("with no options", () => {
@@ -200,6 +201,30 @@ describe("createWebpackConfig()", () => {
           presets: [["es2015", { loose: true }], "react", "stage-1"],
           plugins: [["__coverage__", { ignore: "*.test.js" }]]
         })
+    })
+  })
+
+  describe("code splitting", () => {
+    it("includes chunk plugins for production when vendor exists", () => {
+      const config = createWebpackConfig(["--production"], {
+        vendor: ["foo", "bar"],
+        output: "bundle.js",
+        entry: "main.js"
+      }).build()
+      const chunkPlugin = config.plugins.find(p => p instanceof webpack.optimize.CommonsChunkPlugin)
+
+      expect(chunkPlugin).toBeDefined()
+      expect(config.entry.vendor).toEqual(["foo", "bar"])
+    })
+
+    it("exludes chunk plugins for production when vendor don't exist", () => {
+      const config = createWebpackConfig(["--production"], {
+        output: "bundle.js",
+        entry: "main.js"
+      }).build()
+      const chunkPlugin = config.plugins.find(p => p instanceof webpack.optimize.CommonsChunkPlugin)
+
+      expect(chunkPlugin).toBeUndefined()
     })
   })
 })
