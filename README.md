@@ -49,7 +49,7 @@ You can make the **Atom** `linter-eslint` package use this projects `.eslintrc` 
 ### sasslint
 Uses `sass-lint` and the `programs/sasslint/.sass-lint.yml` rule file. Will check linting on all files named `*.scss` and `*.sass` except files in `node_modules`. Any arguments supplied will just be passed to sass-lint.
 
-Run it like 
+Run it like
 
 ```
 $ javascript-env sasslint
@@ -67,7 +67,7 @@ module.exports = {
     entry: "./path/to/entry-file.js",
     output: {
       path: "./path/to/output-dir",
-      filename: "bundle-file-name.js"
+      filename: "[chunkhash].[name].js"
     }
   }
 }
@@ -82,14 +82,14 @@ module.exports = {
     entry: "./path/to/entry-file.js",
     output: {
       path: "./path/to/output-dir",
-      filename: "bundle-file-name.js"
+      filename: "[chunkhash].[name].js"
     }
   }, {
     target: "node",
     entry: "./path/to/node-entry-file.js",
     output: {
       path: "./path/to/output-dir",
-      filename: "bundle-file-name.js"
+      filename: "[chunkhash].[name].js"
     }
   }]
 }
@@ -102,6 +102,86 @@ There's a simple CLI for this program as well.
 - `$ javascript-env compile --production` - Same as above but does [compression, minification, deduping](https://github.com/iZettle/javascript-env/blob/master/programs/compile/compile-with-webpack.js#L30-L44) and so on.
 - `$ javascript-env compile --watch` - Compiles and then watches for changes and recompiles when they happen
 - `$ javascript-env compile --dev-server` - Starts a [webpack dev server](https://webpack.github.io/docs/webpack-dev-server.html)
+
+
+### Route base code splitting
+```javascript
+// routes.js
+import App from "Modules/App"
+
+export default {
+  path: "/",
+  component: App,
+  getChildRoutes(_, cb) {
+    Promise.all([
+      System.import("Modules/PageA/routes"),
+      System.import("Modules/PageB/routes"),
+    ])
+    .then(modules => modules.reduce(acc, cur), acc.concat([cur.default]), [])
+    .then(modules => cb(null, modules))
+    .catch(err => console.error(err))
+  }
+}
+
+// Modules/PageA/routes.js
+export default {
+  path: "/pageA",
+
+  getComponent(_, cb) {
+    System.import("./containers/page")
+      .then(comp => cb(null, comp.default))
+      .catch(err => console.log(err))
+  }
+}
+
+// Modules/PageB/routes.js
+export default {
+  path: "/pageB",
+
+  getComponent(_, cb) {
+    System.import("./containers/index")
+        .then(comp => cb(null, comp.default))
+        .catch(err => console.log(err))
+  },
+
+  indexRoute: {
+    getComponent(_, cb) {
+      System.import("./containers/list")
+        .then(comp => cb(null, comp.default))
+        .catch(err => console.log(err))
+    }
+  },
+
+  childRoutes: [{
+    path: ":id",
+    getComponent(_, cb) {
+      System.import("./containers/show")
+        .then(comp => cb(null, comp.default))
+        .catch(err => console.log(err))
+    }
+  }, {
+    path: ":id/edit",
+    getComponent(_, cb) {
+      System.import("./containers/edit")
+        .then(comp => cb(null, comp.default))
+        .catch(err => console.log(err))
+    }
+  }]
+}
+
+// index.js
+import React from "react"
+import ReactDOM from "react-dom"
+import { Router } from "react-router/es6"
+import routes from "./routes"
+
+ReactDOM.render(
+  <Provider store={store}>
+    <Router routes={routes} />
+  </Provider>,
+  targetElement
+)
+```
 
 ### test - without tests you might brick the TV
 
@@ -144,4 +224,4 @@ $ javascript-env test -- --single-run=false
 
 :ring:
 :fish_cake:
-🎯
+:dart:
