@@ -152,14 +152,20 @@ function createWebpackConfig(args = [], opts = {}) {
   }
 
   if (opts.entry && opts.output) {
+    const chunks = ["manifest"]
     config.entry = {
-      main: ["babel-polyfill", opts.entry],
-      vendor: opts.vendor ? opts.vendor : []
+      main: ["babel-polyfill", opts.entry]
     }
+
+    if (opts.vendor) {
+      config.entry.vendor = opts.vendor
+      chunks.push("vendor")
+    }
+
     config.output = opts.output
     config.plugins = config.plugins.concat([
       new webpack.optimize.CommonsChunkPlugin({
-        names: ["vendor", "manifest"],
+        names: chunks,
         minChunks: Infinity
       }),
       new AssetsPlugin()

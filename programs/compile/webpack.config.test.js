@@ -38,7 +38,7 @@ describe("createWebpackConfig()", () => {
       })
 
       it("should set the entry", () => {
-        expect(config.entry).toEqual({ main: ["babel-polyfill", "foo"], vendor: [] })
+        expect(config.entry).toEqual({ main: ["babel-polyfill", "foo"] })
       })
 
       it("should set the javascript output", () => {
