@@ -38,8 +38,7 @@ describe("createWebpackConfig()", () => {
       })
 
       it("should set the entry", () => {
-        // babel-polyfill is included automatically
-        expect(config.entry).toEqual({ main: ["babel-polyfill", "foo"] })
+        expect(config.entry).toEqual({ main: ["babel-polyfill", "foo"], vendor: [] })
       })
 
       it("should set the javascript output", () => {
@@ -205,7 +204,7 @@ describe("createWebpackConfig()", () => {
   })
 
   describe("code splitting", () => {
-    it("includes chunk plugins for production when vendor exists", () => {
+    it("includes common chunk plugin", () => {
       const config = createWebpackConfig(["--production"], {
         vendor: ["foo", "bar"],
         output: "bundle.js",
@@ -214,17 +213,10 @@ describe("createWebpackConfig()", () => {
       const chunkPlugin = config.plugins.find(p => p instanceof webpack.optimize.CommonsChunkPlugin)
 
       expect(chunkPlugin).toBeDefined()
-      expect(config.entry.vendor).toEqual(["foo", "bar"])
-    })
-
-    it("exludes chunk plugins for production when vendor don't exist", () => {
-      const config = createWebpackConfig(["--production"], {
-        output: "bundle.js",
-        entry: "main.js"
-      }).build()
-      const chunkPlugin = config.plugins.find(p => p instanceof webpack.optimize.CommonsChunkPlugin)
-
-      expect(chunkPlugin).toBeUndefined()
+      expect(config.entry).toEqual({
+        main: ["babel-polyfill", "main.js"],
+        vendor: ["foo", "bar"]
+      })
     })
   })
 })

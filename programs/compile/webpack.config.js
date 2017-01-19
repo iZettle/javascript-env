@@ -153,13 +153,10 @@ function createWebpackConfig(args = [], opts = {}) {
 
   if (opts.entry && opts.output) {
     config.entry = {
-      main: ["babel-polyfill", opts.entry]
+      main: ["babel-polyfill", opts.entry],
+      vendor: opts.vendor ? opts.vendor : []
     }
     config.output = opts.output
-  }
-
-  if (opts.vendor && args.includes("--production")) {
-    config.entry.vendor = opts.vendor
     config.plugins = config.plugins.concat([
       new webpack.optimize.CommonsChunkPlugin({
         names: ["vendor", "manifest"],
@@ -167,6 +164,14 @@ function createWebpackConfig(args = [], opts = {}) {
       }),
       new AssetsPlugin()
     ])
+
+    if (args.includes("--dev-server")) {
+      // Dev server can't handle [chunkhash]
+      // this will make all files have the
+      // same [hash] but it doesn't matter
+      // in dev-server env
+      config.output.filename = "[hash].[name].js"
+    }
   }
 
   if (opts.target) {
