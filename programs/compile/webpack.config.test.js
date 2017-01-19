@@ -217,6 +217,7 @@ describe("createWebpackConfig()", () => {
         main: ["babel-polyfill", "main.js"],
         vendor: ["foo", "bar"]
       })
+      expect(chunkPlugin.chunkNames).toEqual(["vendor", "manifest"])
     })
   })
 })

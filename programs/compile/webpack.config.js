@@ -159,7 +159,7 @@ function createWebpackConfig(args = [], opts = {}) {
 
     if (opts.vendor) {
       config.entry.vendor = opts.vendor
-      chunks.push("vendor")
+      chunks.unshift("vendor")
     }
 
     config.output = opts.output
