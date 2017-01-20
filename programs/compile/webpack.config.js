@@ -133,6 +133,7 @@ function createWebpackConfig(args = [], opts = {}) {
     resolve: {},
     externals: {},
     plugins: [
+      new webpack.NamedModulesPlugin(),
       new ExtractTextPlugin({
         filename: opts.outputCss || "styles.css",
         allChunks: true

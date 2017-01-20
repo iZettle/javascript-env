@@ -11,6 +11,7 @@ const createDevServer = config => {
     "react-hot-loader/patch"
   )
 
+  config.output.filename = "[name].js"
   config.output.publicPath = `http://${host}:${port}/`
 
   config.plugins.push(new webpack.HotModuleReplacementPlugin())
