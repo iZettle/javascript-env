@@ -1,6 +1,7 @@
 const path = require("path")
 const jsEnvConfig = require("../../config")
 const createWebpackConfig = require("../compile/webpack.config")
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 // TODO: Move nodeModulesPath to some config
 const nodeModulesPath = path.join(process.cwd(), "/node_modules")
@@ -10,6 +11,7 @@ delete webpackConfig.output // The output is the test result
 delete webpackConfig.vendor // No vendor is needed
 webpackConfig.entry = jsEnvConfig.test.files
 webpackConfig.devtool = "inline-source-map" // Produces more quiet error output
+webpackConfig.plugins = webpackConfig.plugins.filter(p => p instanceof ExtractTextPlugin)
 
 Object.assign(webpackConfig.externals, {
   "react/addons": true,

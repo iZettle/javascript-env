@@ -171,14 +171,6 @@ function createWebpackConfig(args = [], opts = {}) {
       }),
       new AssetsPlugin()
     ])
-
-    if (args.includes("--dev-server")) {
-      // Dev server can't handle [chunkhash]
-      // this will make all files have the
-      // same [hash] but it doesn't matter
-      // in dev-server env
-      config.output.filename = "[hash].[name].js"
-    }
   }
 
   if (opts.target) {
