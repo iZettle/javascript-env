@@ -46,7 +46,7 @@ describe("createWebpackConfig()", () => {
       })
 
       it("should set the css output", () => {
-        expect(config.plugins[0].filename).toEqual("foo/bar.css")
+        expect(config.plugins[1].filename).toEqual("foo/bar.css")
       })
     })
 
