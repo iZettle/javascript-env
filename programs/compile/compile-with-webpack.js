@@ -1,3 +1,4 @@
+const fs = require("fs")
 const webpack = require("webpack")
 const devServer = require("./dev-server")
 const createWebpackConfig = require("./webpack.config")
@@ -10,6 +11,12 @@ function createCompiler(config) {
           chunks: false, // Makes the build much quieter
           colors: true
         }))
+      })
+    },
+    profile() {
+      webpack(config).run((err, stats) => {
+        const filePath = `${process.cwd()}/webpack-stats.json`
+        fs.writeFileSync(filePath, JSON.stringify(stats.toJson()))
       })
     },
     watch() {
@@ -64,6 +71,8 @@ module.exports = function compileWithWebpack(config, args = []) {
     compiler.devServer()
   } else if (args.includes("--watch")) {
     compiler.watch()
+  } else if (args.includes("--profile")) {
+    compiler.profile()
   } else {
     compiler.run()
   }
