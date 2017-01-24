@@ -102,6 +102,7 @@ There's a simple CLI for this program as well.
 - `$ javascript-env compile --production` - Same as above but does [compression, minification, deduping](https://github.com/iZettle/javascript-env/blob/master/programs/compile/compile-with-webpack.js#L30-L44) and so on.
 - `$ javascript-env compile --watch` - Compiles and then watches for changes and recompiles when they happen
 - `$ javascript-env compile --dev-server` - Starts a [webpack dev server](https://webpack.github.io/docs/webpack-dev-server.html)
+- `$ javascript-env compile --profile` - Writes a `webpack-stats-0.json` file to the project root folder. Upload it to the webpack [analyze tool](http://webpack.github.io/analyse) find out about big dependencies or slow build performance. If you have multiple builds configured in your `javascript-env.js` config file, one file per config will be written.
 
 
 ### Route base code splitting

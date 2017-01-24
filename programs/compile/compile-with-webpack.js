@@ -1,8 +1,9 @@
+const fs = require("fs")
 const webpack = require("webpack")
 const devServer = require("./dev-server")
 const createWebpackConfig = require("./webpack.config")
 
-function createCompiler(config) {
+function createCompiler(config, buildNumber) {
   return {
     run() {
       webpack(config).run((err, stats) => {
@@ -10,6 +11,12 @@ function createCompiler(config) {
           chunks: false, // Makes the build much quieter
           colors: true
         }))
+      })
+    },
+    profile() {
+      webpack(config).run((err, stats) => {
+        const filePath = `${process.cwd()}/webpack-stats-${buildNumber}.json`
+        fs.writeFileSync(filePath, JSON.stringify(stats.toJson()))
       })
     },
     watch() {
@@ -47,7 +54,9 @@ function modifyForProduction(config, args) {
   return config
 }
 
-module.exports = function compileWithWebpack(config, args = []) {
+// If you have multiple build configs specified in your config file,
+// `buildNumber` will be the index of each build config.
+module.exports = function compileWithWebpack(config, args = [], buildNumber) {
   if (!config) {
     throw new Error("No webpack config passed")
   }
@@ -58,12 +67,14 @@ module.exports = function compileWithWebpack(config, args = []) {
     webpackConfig = modifyForProduction(webpackConfig, args)
   }
 
-  const compiler = createCompiler(webpackConfig)
+  const compiler = createCompiler(webpackConfig, buildNumber)
 
   if (args.includes("--dev-server")) {
     compiler.devServer()
   } else if (args.includes("--watch")) {
     compiler.watch()
+  } else if (args.includes("--profile")) {
+    compiler.profile()
   } else {
     compiler.run()
   }
