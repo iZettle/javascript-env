@@ -1,6 +1,6 @@
 {
   "name": "@izettle/javascript-env",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "",
   "bin": "./bin/cmd.js",
   "main": "index.js",

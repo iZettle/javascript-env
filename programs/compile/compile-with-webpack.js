@@ -69,7 +69,9 @@ module.exports = function compileWithWebpack(config, args = [], buildNumber) {
 
   const compiler = createCompiler(webpackConfig, buildNumber)
 
-  if (args.includes("--dev-server")) {
+  if (args.includes("--return-config")) {
+    return webpackConfig
+  } else if (args.includes("--dev-server")) {
     compiler.devServer()
   } else if (args.includes("--watch")) {
     compiler.watch()
