@@ -98,12 +98,26 @@ module.exports = {
 These multiple builds will run in parallell thank you very much.
 
 There's a simple CLI for this program as well.
+
 - `$ javascript-env compile` - A one-off run (runs all of your configs)
 - `$ javascript-env compile --production` - Same as above but does [compression, minification, deduping](https://github.com/iZettle/javascript-env/blob/master/programs/compile/compile-with-webpack.js#L30-L44) and so on.
 - `$ javascript-env compile --watch` - Compiles and then watches for changes and recompiles when they happen
 - `$ javascript-env compile --dev-server` - Starts a [webpack dev server](https://webpack.github.io/docs/webpack-dev-server.html)
 - `$ javascript-env compile --profile` - Writes a `webpack-stats-0.json` file to the project root folder. Upload it to the webpack [analyze tool](http://webpack.github.io/analyse) find out about big dependencies or slow build performance. If you have multiple builds configured in your `javascript-env.js` config file, one file per config will be written.
 
+#### Requiring Compile With Webpack [Advanced]
+
+`compile/compile-with-webpack` can be required from another program, e.g:
+
+```
+const javascriptEnvConfig = require("./javascript-env").compile
+const compileWithWebpack = require("@izettle/javascript-env/programs/compile/compile-with-webpack")
+
+compileWithWebpack(javascriptEnvConfig, ["--return-config"])
+```
+
+##### Arguments
+`--return-config` - Will tell the program _not_ run the actual compilation but rather _only_ return the final Webpack config. For using the config with external tools. Can also be used with "build mode" arguments such as `--production`, `--dev-server`, etc. E.g. `compileWithWebpack(javascriptEnvConfig, ["--production", "--return-config"])`.
 
 ### Route base code splitting
 ```javascript
