@@ -135,7 +135,7 @@ function createWebpackConfig(args = [], opts = {}) {
           // To keep compatibility with old loaders, this information can be passed here"
           // - https://webpack.js.org/guides/migrating/
           context: process.cwd(),
-          postcss: [autoprefixer({browsers: ["last 5 versions"]})]
+          postcss: [autoprefixer({ browsers: ["last 5 versions"] })]
         }
       })
     ],
