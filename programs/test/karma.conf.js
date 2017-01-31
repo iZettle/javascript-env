@@ -43,10 +43,15 @@ module.exports = function webpackTestConfig(config) {
     webpackServer: {
       noInfo: true
     },
+    junitReporter: {
+      outputDir: `${process.cwd()}/reports/junit`,
+      useBrowserName: false
+    },
     coverageReporter: {
       dir: `${process.cwd()}/reports/coverage`,
       reporters: [
         { type: "html", subdir: "report-html" },
+        { type: "lcov", subdir: "report-lcov" },
         { type: "teamcity" }
       ]
     }

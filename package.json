@@ -39,6 +39,7 @@
     "karma-jasmine": "^1.0.2",
     "karma-jasmine-ajax": "^0.1.13",
     "karma-jasmine-expect-jsx": "^1.0.2",
+    "karma-junit-reporter": "^1.2.0",
     "karma-mocha-reporter": "^2.1.0",
     "karma-phantomjs-launcher": "^1.0.1",
     "karma-sourcemap-loader": "^0.3.7",
