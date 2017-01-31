@@ -33,14 +33,7 @@ const createStyleLoader = (args, opts) => {
         localIdentName: "[local]---[hash:base64:5]"
       }
     }, {
-      loader: "postcss-loader",
-      options: {
-        plugins() {
-          return [
-            autoprefixer({ browsers: ["last 5 versions"] })
-          ]
-        }
-      }
+      loader: "postcss-loader"
     }, {
       loader: "sass-loader",
       query: {
@@ -101,14 +94,7 @@ function createWebpackConfig(args = [], opts = {}) {
         localIdentName: "[local]---[hash:base64:5]"
       }
     }, {
-      loader: "postcss-loader",
-      options: {
-        plugins() {
-          return [
-            autoprefixer({ browsers: ["last 5 versions"] })
-          ]
-        }
-      }
+      loader: "postcss-loader"
     }, {
       loader: "sass-loader",
       query: {
@@ -137,6 +123,20 @@ function createWebpackConfig(args = [], opts = {}) {
       new ExtractTextPlugin({
         filename: opts.outputCss || "styles.css",
         allChunks: true
+      }),
+      new webpack.LoaderOptionsPlugin({
+        minimize: args.includes("--production"),
+        debug: !args.includes("--production"),
+        options: {
+          // sass-loader throws if context isn't passed.
+          //
+          // "Some loaders need context information and read them from the configuration.
+          // This need to be passed via loader options in long-term.
+          // To keep compatibility with old loaders, this information can be passed here"
+          // - https://webpack.js.org/guides/migrating/
+          context: process.cwd(),
+          postcss: [autoprefixer({ browsers: ["last 5 versions"] })]
+        }
       })
     ],
     devServer: {
