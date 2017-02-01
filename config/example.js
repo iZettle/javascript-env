@@ -19,6 +19,11 @@ module.exports = {
       "node_modules"
     ],
 
+    // Whether or not to separate output in
+    //
+    // Default is true.
+    // chunks: false
+
     // glob pattern that babel will ignore
     exclude: /node_modules/,
 
