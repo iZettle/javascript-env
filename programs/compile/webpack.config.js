@@ -164,13 +164,16 @@ function createWebpackConfig(args = [], opts = {}) {
     }
 
     config.output = opts.output
-    config.plugins = config.plugins.concat([
-      new webpack.optimize.CommonsChunkPlugin({
-        names: chunks,
-        minChunks: Infinity
-      }),
-      new AssetsPlugin()
-    ])
+
+    if (opts.chunks !== false) {
+      config.plugins = config.plugins.concat([
+        new webpack.optimize.CommonsChunkPlugin({
+          names: chunks,
+          minChunks: Infinity
+        }),
+        new AssetsPlugin()
+      ])
+    }
   }
 
   if (opts.target) {
