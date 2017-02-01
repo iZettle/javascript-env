@@ -5,7 +5,16 @@ const AssetsPlugin = require("assets-webpack-plugin")
 
 const createBabelOptions = args => {
   const babelConfig = {
-    presets: [["es2015", { loose: true }], "react", "stage-1"],
+    presets: [
+      [
+        "es2015", {
+         loose: true,
+         modules: false
+        }
+      ],
+      "react",
+      "stage-1"
+    ],
     plugins: []
   }
 
