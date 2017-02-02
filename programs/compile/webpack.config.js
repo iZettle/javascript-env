@@ -8,8 +8,8 @@ const createBabelOptions = args => {
     presets: [
       [
         "es2015", {
-         loose: true,
-         modules: false
+          loose: true,
+          modules: false
         }
       ],
       "react",

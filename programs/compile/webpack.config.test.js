@@ -176,7 +176,16 @@ describe("createWebpackConfig()", () => {
       const config = createWebpackConfig().build()
 
       expect(config.module.rules[0].use[0].options)
-        .toEqual({ presets: [["es2015", { loose: true, modules: false }], "react", "stage-1"], plugins: [] })
+        .toEqual({
+          presets: [
+            [
+              "es2015",
+              { loose: true, modules: false }
+            ],
+            "react",
+            "stage-1"],
+          plugins: []
+        })
 
       expect(config.module.rules[3].loader[0].loader)
         .toContain("extract-text-webpack-plugin/loader.js")
@@ -201,6 +210,16 @@ describe("createWebpackConfig()", () => {
           plugins: [["__coverage__", { ignore: "*.test.js" }]]
         })
     })
+  })
+
+  it("should work with profile flag", () => {
+    const config = createWebpackConfig(["--profile"]).build()
+    expect(config.profile).toEqual(true)
+  })
+
+  it("should work without profile flag", () => {
+    const config = createWebpackConfig().build()
+    expect(config.profile).toEqual(false)
   })
 
   describe("code splitting", () => {
