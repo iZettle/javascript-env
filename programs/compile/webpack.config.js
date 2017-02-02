@@ -8,8 +8,8 @@ const createBabelOptions = args => {
     presets: [
       [
         "es2015", {
-         loose: true,
-         modules: false
+          loose: true,
+          modules: false
         }
       ],
       "react",
@@ -156,6 +156,7 @@ function createWebpackConfig(args = [], opts = {}) {
         chunkModules: false
       }
     },
+    profile: args.includes("--profile"),
     performance: {
       hints: false
     }
