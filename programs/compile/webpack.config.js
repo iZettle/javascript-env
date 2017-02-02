@@ -156,6 +156,7 @@ function createWebpackConfig(args = [], opts = {}) {
         chunkModules: false
       }
     },
+    profile: args.includes("--profile"),
     performance: {
       hints: false
     }
