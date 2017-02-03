@@ -9,12 +9,12 @@ const programError = program => console.error(` - javascript-env ${program}`)
 if (!name) {
   console.error("You need to supply a program to run. Existing programs are:")
   Object.keys(programs).forEach(programError)
-  process.exit(0)
+  process.exit(1)
 }
 
 if (!programs[name]) {
   console.error(`There's no program called "${name}"`)
-  process.exit(0)
+  process.exit(1)
 }
 
 const program = programs[name](args)
@@ -25,6 +25,5 @@ if (name === "test") {
   program.command = "node"
 }
 
-spawn(program.command, program.args, { stdio: "inherit" }).on("exit", () => {
-  process.exit(0)
-})
+spawn(program.command, program.args, { stdio: "inherit" })
+  .on("exit", code => process.exit(code))
