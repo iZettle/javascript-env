@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const spawn = require("child_process").spawn
 const programs = require("../programs")
 
@@ -25,5 +26,15 @@ if (name === "test") {
   program.command = "node"
 }
 
-spawn(program.command, program.args, { stdio: "inherit" })
+const programProcess = spawn(program.command, program.args, { stdio: "inherit" })
   .on("exit", code => process.exit(code))
+
+process
+  .on("SIGINT", () => {
+    console.log("***")
+    process.kill(programProcess.pid, "SIGINT")
+  })
+  .on("uncaughtException", () => {
+    console.log("***")
+    process.kill(programProcess.pid, "uncaughtException")
+  })
