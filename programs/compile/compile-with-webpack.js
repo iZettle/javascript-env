@@ -1,4 +1,4 @@
-const fs = require("fs")
+const fs = require("fs-extra")
 const webpack = require("webpack")
 const devServer = require("./dev-server")
 const createWebpackConfig = require("./webpack.config")
@@ -54,6 +54,14 @@ function modifyForProduction(config, args) {
   return config
 }
 
+function removeBuildArtifacts(config) {
+  return function () {
+    fs.removeSync(config.output.path)
+    console.log("Removed build artifacts at:", config.output.path)
+    process.exit()
+  }
+}
+
 // If you have multiple build configs specified in your config file,
 // `buildNumber` will be the index of each build config.
 module.exports = function compileWithWebpack(config, args = [], buildNumber) {
@@ -75,6 +83,9 @@ module.exports = function compileWithWebpack(config, args = [], buildNumber) {
     compiler.devServer()
   } else if (args.includes("--watch")) {
     compiler.watch()
+
+    process.on("SIGINT", removeBuildArtifacts(config))
+    process.on("uncaughtException", removeBuildArtifacts(config))
   } else if (args.includes("--profile")) {
     compiler.profile()
   } else {
