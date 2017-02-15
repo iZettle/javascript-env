@@ -89,9 +89,11 @@ const createRules = (args, opts) => ({
 })
 
 function createWebpackConfig(args = [], opts = {}) {
+  const isProduction = args.includes("--production")
+  const useDevServer = args.includes("--dev-server")
   const rules = createRules(args, opts)
 
-  if (args.includes("--dev-server")) {
+  if (useDevServer) {
     delete rules.sass.loader
     rules.sass.use = [{
       loader: "style-loader"
@@ -134,8 +136,9 @@ function createWebpackConfig(args = [], opts = {}) {
         allChunks: true
       }),
       new webpack.LoaderOptionsPlugin({
-        minimize: args.includes("--production"),
-        debug: !args.includes("--production"),
+        minimize: isProduction,
+        debug: !isProduction,
+        sourceMap: true,
         options: {
           // sass-loader throws if context isn't passed.
           //
