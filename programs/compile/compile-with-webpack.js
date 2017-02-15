@@ -46,7 +46,8 @@ function modifyForProduction(config, args) {
       new webpack.optimize.UglifyJsPlugin({
         compress: { warnings: false },
         comments: false,
-        minimize: true
+        minimize: true,
+        sourceMap: true
       })
     )
   }
