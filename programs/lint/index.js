@@ -9,6 +9,6 @@ const baseArgs = [
   jsEnvConfig.lint.files
 ]
 
-const eslint = args => ({ command, args: baseArgs.concat(args) })
+const eslint = jsEnvConfig.lint ? args => ({ command, args: baseArgs.concat(args) }) : null
 
 module.exports = eslint
