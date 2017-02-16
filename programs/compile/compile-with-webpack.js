@@ -56,7 +56,7 @@ function modifyForProduction(config, args) {
 }
 
 function removeBuildArtifacts(config) {
-  return function remover() {
+  return function () {
     fs.removeSync(config.output.path)
     console.log("Removed build artifacts at:", config.output.path)
     process.exit()

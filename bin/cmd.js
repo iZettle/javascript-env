@@ -14,7 +14,7 @@ if (!name) {
 }
 
 if (!programs[name]) {
-  console.error(`There's no program or config entry called "${name}"`)
+  console.error(`There's no program called "${name}"`)
   process.exit(1)
 }
 
