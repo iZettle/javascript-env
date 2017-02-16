@@ -10,6 +10,6 @@ const baseArgs = [
   jsEnvConfig.sasslint.files
 ]
 
-const sasslint = args => ({ command, args: baseArgs.concat(args) })
+const sasslint = jsEnvConfig.sasslint ? null : args => ({ command, args: baseArgs.concat(args) })
 
 module.exports = sasslint

@@ -33,8 +33,8 @@ const createBabelOptions = args => {
 
 const createStyleLoader = (args, opts) => {
   const styleLoader = {
-    fallbackLoader: "style-loader",
-    loader: [{
+    fallback: "style-loader",
+    use: [{
       loader: "css-loader",
       query: {
         modules: true,
@@ -52,7 +52,7 @@ const createStyleLoader = (args, opts) => {
   }
 
   if (opts.includes) {
-    const sassLoader = styleLoader.loader.find(c => c.loader === "sass-loader")
+    const sassLoader = styleLoader.use.find(c => c.loader === "sass-loader")
     if (sassLoader) {
       sassLoader.query.includePaths = opts.includes
     }
