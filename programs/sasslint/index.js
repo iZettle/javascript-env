@@ -7,7 +7,7 @@ const baseArgs = [
   "--config", path.join(__dirname, ".sass-lint.yml"),
   "--verbose",
   "--no-exit",
-  jsEnvConfig.sasslint.files
+  jsEnvConfig.sasslint ? jsEnvConfig.sasslint.files : ""
 ]
 
 const sasslint = jsEnvConfig.sasslint ? args => ({ command, args: baseArgs.concat(args) }) : null
