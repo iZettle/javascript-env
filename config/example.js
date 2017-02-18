@@ -44,6 +44,12 @@ module.exports = {
           secure: false
         }
       }
+    },
+
+    // Define global variables which will be available in your
+    // entire codebase. E.g. for adding values from env vars.
+    define: {
+      "__MYHOST__": JSON.stringify(process.env.MYHOST)
     }
 
   },
