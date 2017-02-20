@@ -165,6 +165,12 @@ function createWebpackConfig(args = [], opts = {}) {
     }
   }
 
+  if (opts.define) {
+    config.plugins.push(
+      new webpack.DefinePlugin(opts.define)
+    )
+  }
+
   if (opts.entry && opts.output) {
     const chunks = ["manifest"]
     config.entry = {
