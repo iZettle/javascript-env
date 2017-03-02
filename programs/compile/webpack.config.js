@@ -15,7 +15,7 @@ const createBabelOptions = args => {
       "react",
       "stage-1"
     ],
-    plugins: ["transform-decorators-legacy"]
+    plugins: ["transform-decorators-legacy", "transform-object-rest-spread"]
   }
 
   if (args.includes("--coverage")) {
