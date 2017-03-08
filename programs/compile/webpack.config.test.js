@@ -184,7 +184,7 @@ describe("createWebpackConfig()", () => {
             ],
             "react",
             "stage-1"],
-          plugins: ["transform-decorators-legacy"]
+          plugins: ["transform-decorators-legacy", "transform-object-rest-spread"]
         })
 
       expect(config.module.rules[3].loader[0].loader)
@@ -197,7 +197,11 @@ describe("createWebpackConfig()", () => {
       expect(config.module.rules[0].use[0].options)
         .toEqual({
           presets: [["es2015", { loose: true, modules: false }], "react", "stage-1"],
-          plugins: ["transform-decorators-legacy", "react-hot-loader/babel"]
+          plugins: [
+            "transform-decorators-legacy",
+            "transform-object-rest-spread",
+            "react-hot-loader/babel"
+          ]
         })
     })
 
@@ -207,7 +211,11 @@ describe("createWebpackConfig()", () => {
       expect(config.module.rules[0].use[0].options)
         .toEqual({
           presets: [["es2015", { loose: true, modules: false }], "react", "stage-1"],
-          plugins: ["transform-decorators-legacy", ["__coverage__", { ignore: "*.test.js" }]]
+          plugins: [
+            "transform-decorators-legacy",
+            "transform-object-rest-spread",
+            ["__coverage__", { ignore: "*.test.js" }]
+          ]
         })
     })
   })
