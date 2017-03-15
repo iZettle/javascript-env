@@ -5,11 +5,11 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 // TODO: Move nodeModulesPath to some config
 const nodeModulesPath = path.join(process.cwd(), "/node_modules")
-const config = Array.isArray(jsEnvConfig.compile) ?
+const jsEnvConfigSelected = Array.isArray(jsEnvConfig.compile) ?
                 jsEnvConfig.compile.find(config => config.useForTest) :
                 jsEnvConfig.compile
 
-const webpackConfig = createWebpackConfig(["--coverage"], config).build()
+const webpackConfig = createWebpackConfig(["--coverage"], jsEnvConfigSelected).build()
 
 delete webpackConfig.output // The output is the test result
 delete webpackConfig.vendor // No vendor is needed
