@@ -7,7 +7,7 @@
   "scripts": {
     "test": "JASMINE_CONFIG_PATH=./jasmine.json jasmine",
     "lint": "./bin/cmd.js lint",
-    "prepublish": "yarn run lint && yarn run test"
+    "prepublish": "yarn lint && yarn test"
   },
   "author": "",
   "license": "ISC",
