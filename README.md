@@ -79,6 +79,7 @@ Have a look at the [example config](https://github.com/iZettle/javascript-env/bl
 module.exports = {
   compile: [{
     target: "web",
+    useForTest: true,
     entry: "./path/to/entry-file.js",
     output: {
       path: "./path/to/output-dir",
@@ -95,7 +96,7 @@ module.exports = {
 }
 ```
 
-These multiple builds will run in parallell thank you very much.
+These multiple builds will run in parallell thank you very much. One thing to note here is that when running tests we can only use one config. What config to use is determined by `useForTest`, if multiple `useForTest` is found the first one will be used.
 
 There's a simple CLI for this program as well.
 

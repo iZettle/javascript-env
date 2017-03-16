@@ -5,6 +5,9 @@ module.exports = {
     // the webpack entry file
     entry: "app/ui",
 
+    // if provided with multiple compile configs this shows what config to use for testing
+    useForTest: true,
+
     // webpack puts its bundles in this dir
     output: {
       path: "public",
