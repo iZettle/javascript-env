@@ -2,7 +2,7 @@
 const path = require("path")
 const jsEnvConfig = require("../../config")
 
-const command = path.join(process.cwd(), "node_modules", ".bin", "karma")
+const command = path.join(__dirname, "..", "..", "node_modules", ".bin", "karma")
 const baseArgs = ["start", path.join(__dirname, "karma.conf.js")]
 const karma = jsEnvConfig.test ? args => ({ command, args: baseArgs.concat(args) }) : null
 

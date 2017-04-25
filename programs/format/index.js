@@ -2,7 +2,7 @@
 const path = require("path")
 const jsEnvConfig = require("../../config")
 
-const command = path.join(process.cwd(), "node_modules", ".bin", "prettier")
+const command = path.join(__dirname, "..", "..", "node_modules", ".bin", "prettier")
 
 const baseArgs = [
   "--write",
