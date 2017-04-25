@@ -1,5 +1,8 @@
 {
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
@@ -34,7 +37,7 @@
     "no-param-reassign": 0,
     "no-restricted-syntax": 0,
     "quotes": [2, "double"],
-    "react/jsx-closing-bracket-location": [1, "after-props"],
+    "react/jsx-closing-bracket-location": 0,
     "react/jsx-filename-extension": 0,
     "react/jsx-no-bind": 0,
     "react/jsx-uses-react": 1,
@@ -46,6 +49,7 @@
     "react/prefer-stateless-function": 1,
     "react/prop-types": 0,
     "react/require-extension": "off",
+    "react/jsx-indent": 0,
     "semi": [2, "never"]
   }
 }
