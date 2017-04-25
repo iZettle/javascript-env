@@ -8,7 +8,7 @@ const baseArgs = [
   "--write",
   "--no-semi",
   "--jsx-bracket-same-line",
-  "--print-width", "100",
+  "--print-width", "100"
 ]
 
 const configFilesArgs = [
