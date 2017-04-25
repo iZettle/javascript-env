@@ -5,9 +5,9 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 // TODO: Move nodeModulesPath to some config
 const nodeModulesPath = path.join(process.cwd(), "/node_modules")
-const jsEnvConfigSelected = Array.isArray(jsEnvConfig.compile) ?
-                jsEnvConfig.compile.find(config => config.useForTest) :
-                jsEnvConfig.compile
+const jsEnvConfigSelected = Array.isArray(jsEnvConfig.compile)
+  ? jsEnvConfig.compile.find(config => config.useForTest)
+  : jsEnvConfig.compile
 
 const webpackConfig = createWebpackConfig(["--coverage"], jsEnvConfigSelected).build()
 
@@ -26,22 +26,12 @@ Object.assign(webpackConfig.externals, {
 module.exports = function webpackTestConfig(config) {
   config.set({
     browsers: ["PhantomJS"],
-    files: [
-      path.join(nodeModulesPath, "/babel-polyfill/dist/polyfill.js"),
-      jsEnvConfig.test.files
-    ],
-    frameworks: [
-      "jasmine-ajax",
-      "jasmine",
-      "jasmine-expect-jsx"
-    ],
+    files: [path.join(nodeModulesPath, "/babel-polyfill/dist/polyfill.js"), jsEnvConfig.test.files],
+    frameworks: ["jasmine-ajax", "jasmine", "jasmine-expect-jsx"],
     preprocessors: {
       [jsEnvConfig.test.files]: ["webpack", "sourcemap"]
     },
-    reporters: [
-      "jasmine-expect-jsx",
-      "mocha"
-    ],
+    reporters: ["jasmine-expect-jsx", "mocha"],
     singleRun: true,
     webpack: webpackConfig,
     webpackServer: {

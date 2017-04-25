@@ -7,7 +7,8 @@ const createBabelOptions = args => {
   const babelConfig = {
     presets: [
       [
-        "es2015", {
+        "es2015",
+        {
           loose: true,
           modules: false
         }
@@ -19,9 +20,7 @@ const createBabelOptions = args => {
   }
 
   if (args.includes("--coverage")) {
-    babelConfig.plugins.push(
-      ["__coverage__", { ignore: "*.test.js" }]
-    )
+    babelConfig.plugins.push(["__coverage__", { ignore: "*.test.js" }])
   }
 
   if (args.includes("--dev-server")) {
@@ -34,21 +33,25 @@ const createBabelOptions = args => {
 const createStyleLoader = (args, opts) => {
   const styleLoader = {
     fallback: "style-loader",
-    use: [{
-      loader: "css-loader",
-      query: {
-        modules: true,
-        sourceMap: true,
-        localIdentName: "[local]---[hash:base64:5]"
+    use: [
+      {
+        loader: "css-loader",
+        query: {
+          modules: true,
+          sourceMap: true,
+          localIdentName: "[local]---[hash:base64:5]"
+        }
+      },
+      {
+        loader: "postcss-loader"
+      },
+      {
+        loader: "sass-loader",
+        query: {
+          sourceMap: true
+        }
       }
-    }, {
-      loader: "postcss-loader"
-    }, {
-      loader: "sass-loader",
-      query: {
-        sourceMap: true
-      }
-    }]
+    ]
   }
 
   if (opts.includes) {
@@ -65,22 +68,28 @@ const createRules = (args, opts) => ({
   babel: {
     test: /\.js$/,
     exclude: /node_modules/,
-    use: [{
-      loader: "babel-loader",
-      options: createBabelOptions(args)
-    }]
+    use: [
+      {
+        loader: "babel-loader",
+        options: createBabelOptions(args)
+      }
+    ]
   },
   json: {
     test: /\.json$/,
-    use: [{
-      loader: "json-loader"
-    }]
+    use: [
+      {
+        loader: "json-loader"
+      }
+    ]
   },
   svg: {
     test: /\.svg$/,
-    use: [{
-      loader: "raw-loader"
-    }]
+    use: [
+      {
+        loader: "raw-loader"
+      }
+    ]
   },
   sass: {
     test: /\.scss$/,
@@ -95,23 +104,28 @@ function createWebpackConfig(args = [], opts = {}) {
 
   if (useDevServer) {
     delete rules.sass.loader
-    rules.sass.use = [{
-      loader: "style-loader"
-    }, {
-      loader: "css-loader",
-      query: {
-        modules: true,
-        sourceMap: true,
-        localIdentName: "[local]---[hash:base64:5]"
+    rules.sass.use = [
+      {
+        loader: "style-loader"
+      },
+      {
+        loader: "css-loader",
+        query: {
+          modules: true,
+          sourceMap: true,
+          localIdentName: "[local]---[hash:base64:5]"
+        }
+      },
+      {
+        loader: "postcss-loader"
+      },
+      {
+        loader: "sass-loader",
+        query: {
+          sourceMap: true
+        }
       }
-    }, {
-      loader: "postcss-loader"
-    }, {
-      loader: "sass-loader",
-      query: {
-        sourceMap: true
-      }
-    }]
+    ]
 
     if (opts.includes) {
       const sassLoader = rules.sass.use.find(c => c.loader === "sass-loader")
@@ -166,9 +180,7 @@ function createWebpackConfig(args = [], opts = {}) {
   }
 
   if (opts.define) {
-    config.plugins.push(
-      new webpack.DefinePlugin(opts.define)
-    )
+    config.plugins.push(new webpack.DefinePlugin(opts.define))
   }
 
   if (opts.entry && opts.output) {
@@ -226,8 +238,9 @@ function createWebpackConfig(args = [], opts = {}) {
   return {
     config,
     build() {
-      this.config.module.rules = Object.keys(this.config.module.rules)
-        .map(key => this.config.module.rules[key])
+      this.config.module.rules = Object.keys(this.config.module.rules).map(
+        key => this.config.module.rules[key]
+      )
 
       return this.config
     }

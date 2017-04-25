@@ -1,7 +1,5 @@
 module.exports = {
-
   compile: {
-
     // the webpack entry file
     entry: "app/ui",
 
@@ -16,11 +14,7 @@ module.exports = {
 
     // paths that webpack will look under
     // when resolving modules
-    includes: [
-      "app/ui",
-      "node_modules/inugami/src",
-      "node_modules"
-    ],
+    includes: ["app/ui", "node_modules/inugami/src", "node_modules"],
 
     // Whether or not to separate output in
     //
@@ -54,21 +48,16 @@ module.exports = {
     define: {
       __MYHOST__: JSON.stringify(process.env.MYHOST)
     }
-
   },
 
   lint: {
-
     // eslint will lint files matching this glob
     files: "app/ui/**/*.js"
-
   },
 
   test: {
-
     // karma will look for test files
     // using this glob pattern
     files: "app/ui/**/*test.js"
-
   }
 }
