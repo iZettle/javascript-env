@@ -27,10 +27,51 @@ To configure `javascript-env` put a `javascript-env.js` in your project's root d
 ## Programs
 The following programs exist currently:
 
-### lint - one code style to rule them all
+### format - one code style to rule them all
+
+Uses [prettier](https://github.com/prettier/prettier) to reformat all source code.
+
+Configure what files to reformat in your `javascript-env.js` config:
+
+```js
+module.exports = {
+  format: {
+    files: "src/**/*.js"
+  }
+}
+```
+
+#### Pre-commit hook
+
+To auto-format all files when commiting, do the following in the project you're using javascript-env in. Auto-formating on commit adds only takes a few milliseconds (for realz!) and it can't fail, so no reason to not do it.
+
+Install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged).
+
+```
+yarn add husky lint-staged --dev
+```
+
+Add the following to your `package.json`
+
+```
+  "scripts": {
+    "precommit": "lint-staged",
+  },
+  "lint-staged": {
+    "*.js": [
+      "javascript-env format --files",
+      "git add"
+    ]
+  },
+```
+
+Now when committing, the files are automagically reformated!
+
+### lint - second code style to rule them all
 Uses `eslint` and the `programs/lint/.eslintrc` rule file and the files glob specified in your `javascript-env.js` config file. Any other arguments supplied will just be passed to eslint.
 
 Configure what files to lint by specifing it in your projects `javascript-env.js` config file.
+
 ```js
 module.exports = {
   lint: {
