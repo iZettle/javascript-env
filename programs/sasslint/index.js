@@ -4,7 +4,8 @@ const jsEnvConfig = require("../../config")
 
 const command = path.join(__dirname, "..", "..", "node_modules", ".bin", "sass-lint")
 const baseArgs = [
-  "--config", path.join(__dirname, ".sass-lint.yml"),
+  "--config",
+  path.join(__dirname, ".sass-lint.yml"),
   "--verbose",
   "--no-exit",
   jsEnvConfig.sasslint ? jsEnvConfig.sasslint.files : ""

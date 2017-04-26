@@ -26,8 +26,9 @@ if (name === "test") {
   program.command = "node"
 }
 
-const programProcess = spawn(program.command, program.args, { stdio: "inherit" })
-  .on("exit", code => process.exit(code))
+const programProcess = spawn(program.command, program.args, { stdio: "inherit" }).on("exit", code =>
+  process.exit(code)
+)
 
 process
   .on("SIGINT", () => {

@@ -7,10 +7,12 @@ function createCompiler(config, buildNumber) {
   return {
     run() {
       webpack(config).run((err, stats) => {
-        console.log(stats.toString({
-          chunks: false, // Makes the build much quieter
-          colors: true
-        }))
+        console.log(
+          stats.toString({
+            chunks: false, // Makes the build much quieter
+            colors: true
+          })
+        )
       })
     },
     profile() {
@@ -21,10 +23,12 @@ function createCompiler(config, buildNumber) {
     },
     watch() {
       webpack(config).watch({}, (err, stats) => {
-        console.log(stats.toString({
-          chunks: false, // Makes the build much quieter
-          colors: true
-        }))
+        console.log(
+          stats.toString({
+            chunks: false, // Makes the build much quieter
+            colors: true
+          })
+        )
       })
     },
     devServer() {

@@ -4,8 +4,10 @@ const jsEnvConfig = require("../../config")
 
 const command = path.join(__dirname, "..", "..", "node_modules", ".bin", "eslint")
 const baseArgs = [
-  "--config", path.join(__dirname, ".eslintrc.json"),
-  "--ignore-path", path.join(process.cwd(), ".gitignore"),
+  "--config",
+  path.join(__dirname, ".eslintrc.json"),
+  "--ignore-path",
+  path.join(process.cwd(), ".gitignore"),
   jsEnvConfig.lint ? jsEnvConfig.lint.files : ""
 ]
 

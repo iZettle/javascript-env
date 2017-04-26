@@ -175,48 +175,40 @@ describe("createWebpackConfig()", () => {
     it("should default to production scss", () => {
       const config = createWebpackConfig().build()
 
-      expect(config.module.rules[0].use[0].options)
-        .toEqual({
-          presets: [
-            [
-              "es2015",
-              { loose: true, modules: false }
-            ],
-            "react",
-            "stage-1"],
-          plugins: ["transform-decorators-legacy", "transform-object-rest-spread"]
-        })
+      expect(config.module.rules[0].use[0].options).toEqual({
+        presets: [["es2015", { loose: true, modules: false }], "react", "stage-1"],
+        plugins: ["transform-decorators-legacy", "transform-object-rest-spread"]
+      })
 
-      expect(config.module.rules[3].loader[0].loader)
-        .toContain("extract-text-webpack-plugin/loader.js")
+      expect(config.module.rules[3].loader[0].loader).toContain(
+        "extract-text-webpack-plugin/loader.js"
+      )
     })
 
     it("should work with dev-server flag", () => {
       const config = createWebpackConfig(["--dev-server"]).build()
 
-      expect(config.module.rules[0].use[0].options)
-        .toEqual({
-          presets: [["es2015", { loose: true, modules: false }], "react", "stage-1"],
-          plugins: [
-            "transform-decorators-legacy",
-            "transform-object-rest-spread",
-            "react-hot-loader/babel"
-          ]
-        })
+      expect(config.module.rules[0].use[0].options).toEqual({
+        presets: [["es2015", { loose: true, modules: false }], "react", "stage-1"],
+        plugins: [
+          "transform-decorators-legacy",
+          "transform-object-rest-spread",
+          "react-hot-loader/babel"
+        ]
+      })
     })
 
     it("should work with coverage flag", () => {
       const config = createWebpackConfig(["--coverage"]).build()
 
-      expect(config.module.rules[0].use[0].options)
-        .toEqual({
-          presets: [["es2015", { loose: true, modules: false }], "react", "stage-1"],
-          plugins: [
-            "transform-decorators-legacy",
-            "transform-object-rest-spread",
-            ["__coverage__", { ignore: "*.test.js" }]
-          ]
-        })
+      expect(config.module.rules[0].use[0].options).toEqual({
+        presets: [["es2015", { loose: true, modules: false }], "react", "stage-1"],
+        plugins: [
+          "transform-decorators-legacy",
+          "transform-object-rest-spread",
+          ["__coverage__", { ignore: "*.test.js" }]
+        ]
+      })
     })
   })
 
