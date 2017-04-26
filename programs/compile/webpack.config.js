@@ -13,7 +13,8 @@ const createBabelOptions = args => {
         }
       ],
       "react",
-      "stage-1"
+      "stage-1",
+      "flow"
     ],
     plugins: ["transform-decorators-legacy", "transform-object-rest-spread"]
   }
