@@ -168,6 +168,7 @@ function createWebpackConfig(args = [], opts = {}) {
     devServer: {
       inline: true,
       hot: true,
+      disableHostCheck: true,
       stats: {
         colors: true,
         chunkModules: false
