@@ -9,5 +9,8 @@ module.exports = {
   },
   test: {
     files: path.join(process.cwd(), "!(node_modules)/**", "*test.js")
+  },
+  format: {
+    files: "{bin/*.js,config/*.js,programs/*.js,programs/**/*.js}"
   }
 }

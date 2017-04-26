@@ -7,13 +7,21 @@
   "scripts": {
     "test": "JASMINE_CONFIG_PATH=./jasmine.json jasmine",
     "lint": "./bin/cmd.js lint",
-    "prepublish": "yarn lint && yarn test"
+    "prepublish": "yarn lint && yarn test",
+    "precommit": "lint-staged",
+    "format": "./bin/cmd.js format"
   },
   "author": "",
   "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/iZettle/javascript-env"
+  },
+  "lint-staged": {
+    "*.js": [
+      "javascript-env format --files",
+      "git add"
+    ]
   },
   "dependencies": {
     "assets-webpack-plugin": "^3.5.0",
@@ -67,5 +75,9 @@
     "style-loader": "^0.13.1",
     "webpack": "^2.2.0",
     "webpack-dev-server": "^2.2.0"
+  },
+  "devDependencies": {
+    "husky": "^0.13.3",
+    "lint-staged": "^3.4.0"
   }
 }
