@@ -40,7 +40,10 @@ module.exports = {
           target: "http://0.0.0.0:3100",
           secure: false
         }
-      }
+      },
+
+      // Change from default dev server port 8000
+      port: 8001
     },
 
     // Define global variables which will be available in your
