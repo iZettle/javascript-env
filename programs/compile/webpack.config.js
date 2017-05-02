@@ -65,6 +65,19 @@ const createStyleLoader = (args, opts) => {
 }
 
 const createRules = (args, opts) => ({
+  typescript: {
+    test: /\.tsx?$/,
+    exclude: /node_modules/,
+    use: [
+      {
+        loader: "awesome-typescript-loader",
+        query: {
+          useCache: true,
+          useBabel: true
+        }
+      }
+    ]
+  },
   babel: {
     test: /\.js$/,
     exclude: /node_modules/,
@@ -141,7 +154,9 @@ function createWebpackConfig(args = [], opts = {}) {
     entry: ["babel-polyfill"],
     devtool: "eval",
     module: { rules },
-    resolve: {},
+    resolve: {
+      extensions: [".ts", ".tsx", ".js", ".json"]
+    },
     externals: {},
     plugins: [
       new webpack.NamedModulesPlugin(),
