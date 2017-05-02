@@ -70,7 +70,11 @@ const createRules = (args, opts) => ({
     exclude: /node_modules/,
     use: [
       {
-        loader: "awesome-typescript-loader"
+        loader: "awesome-typescript-loader",
+        query: {
+          useCache: true,
+          useBabel: true
+        }
       }
     ]
   },
