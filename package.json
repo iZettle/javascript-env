@@ -19,7 +19,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "javascript-env format --files",
+      "./bin/cmd.js format --files",
       "git add"
     ]
   },
