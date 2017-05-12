@@ -38,7 +38,7 @@ function createCompiler(config, buildNumber) {
 }
 
 function modifyForProduction(config, args) {
-  config.devtool = "cheap-module-source-map"
+  config.devtool = "source-map"
   config.plugins.push(
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("production")
