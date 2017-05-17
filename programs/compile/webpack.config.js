@@ -184,6 +184,7 @@ function createWebpackConfig(args = [], opts = {}) {
       inline: true,
       hot: true,
       disableHostCheck: true,
+      headers: { "Access-Control-Allow-Origin": "*" },
       stats: {
         colors: true,
         chunkModules: false
