@@ -193,8 +193,7 @@ function createWebpackConfig(args = [], opts = {}) {
     profile: args.includes("--profile"),
     performance: {
       hints: false
-    },
-    bail: isProduction
+    }
   }
 
   if (opts.define) {
