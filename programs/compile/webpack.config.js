@@ -19,10 +19,6 @@ const createBabelOptions = args => {
     plugins: ["transform-decorators-legacy", "transform-object-rest-spread"]
   }
 
-  if (args.includes("--coverage")) {
-    babelConfig.plugins.push(["__coverage__", { ignore: "*.test.js" }])
-  }
-
   if (args.includes("--dev-server")) {
     babelConfig.plugins.push("react-hot-loader/babel")
   }

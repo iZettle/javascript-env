@@ -56,11 +56,5 @@ module.exports = {
   lint: {
     // eslint will lint files matching this glob
     files: "app/ui/**/*.js"
-  },
-
-  test: {
-    // karma will look for test files
-    // using this glob pattern
-    files: "app/ui/**/*test.js"
   }
 }
