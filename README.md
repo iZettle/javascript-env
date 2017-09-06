@@ -240,45 +240,6 @@ ReactDOM.render(
 )
 ```
 
-### test - without tests you might brick the TV
-
-We're using the following test suite
-
-- [Karma](https://karma-runner.github.io/1.0/index.html) as a test running on
-    phantomjs and in the future on Chrome/Firefox/Safari
-- [Jasmine](http://jasmine.github.io/) - as a test framework for writing the
-    tests.
-- [Mocha reporter](https://www.npmjs.com/package/karma-mocha-reporter) - for
-    lovely output
-
-Tell `javascript-env` where your test files live by specifying it in the test section of your project's `javascript-env.js` file.
-
-```js
-module.exports = {
-  test: {
-    files: "**/*.js"
-  }
-}
-```
-
-And run it like so:
-
-```sh
-$ javascript-env test
-```
-
-Or with other reporters
-
-```sh
-$ javascript-env test -- --reporters teamcity,coverage
-```
-
-Or with a watcher
-
-```sh
-$ javascript-env test -- --single-run=false
-```
-
 :ring:
 :fish_cake:
 :dart:
