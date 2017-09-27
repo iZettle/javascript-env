@@ -1,4 +1,7 @@
 # javascript-env
+
+## Deprecation notice: We had a good run but javascript-env is no longer used or maintained by iZettle.
+
 A collection of programs and configuration files that is meant to be shared between our JavaScript projects.
 
 ## Install
